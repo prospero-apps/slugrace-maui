@@ -1,9 +1,11 @@
+using Microsoft.Maui.Platform;
+
 namespace Slugrace;
 
 public partial class TestPage : ContentPage
-{
-	public TestPage()
+{    
+    public TestPage()
 	{
 		InitializeComponent();
-	}
+    }    
 }

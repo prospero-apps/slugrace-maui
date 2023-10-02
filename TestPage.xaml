@@ -5,8 +5,14 @@
              Title="TestPage">
     <VerticalStackLayout>
         <Label 
-            Text="Test Page"
+            x:Name="label"
+            FontSize="20"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
+
+        <Editor 
+            Placeholder="Type something..."
+            AutoSize="TextChanges" />
+
     </VerticalStackLayout>
 </ContentPage>
