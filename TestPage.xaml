@@ -3,16 +3,76 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Slugrace.TestPage"
              Title="TestPage">
-    <VerticalStackLayout>
-        <Label 
-            x:Name="label"
-            FontSize="20"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+    <FlexLayout 
+        BackgroundColor="Beige"
+        Direction="Column">
 
-        <Editor 
-            Placeholder="Type something..."
-            AutoSize="TextChanges" />
+        <HorizontalStackLayout
+            BackgroundColor="Black"
+            Spacing="50"
+            Padding="10">
+            <Label 
+                Text="File"
+                TextColor="White"
+                FontSize="20"
+                FontAttributes="Bold" />
+            <Label 
+                Text="Edit"
+                TextColor="White"
+                FontSize="20"
+                FontAttributes="Bold" />
+            <Label 
+                Text="View"
+                TextColor="White"
+                FontSize="20"
+                FontAttributes="Bold" />
+            <Label 
+                Text="Help"
+                TextColor="White"
+                FontSize="20"
+                FontAttributes="Bold" />
+        </HorizontalStackLayout>
 
-    </VerticalStackLayout>
+        <Grid
+            Margin="40"
+            Padding="10"
+            BackgroundColor="Bisque"
+            RowDefinitions="100, *, 100"
+            ColumnDefinitions="100, *, 100"
+            RowSpacing="10"
+            ColumnSpacing="10">
+            <Label
+                Text="Start"
+                FontSize="30"
+                TextColor="Firebrick" />
+            
+            <AbsoluteLayout
+                Grid.Column="1"
+                BackgroundColor="Beige">
+                <Button
+                    Text="1"
+                    FontSize="40"
+                    AbsoluteLayout.LayoutBounds=".1, .5, .3, .5"
+                    AbsoluteLayout.LayoutFlags="PositionProportional, SizeProportional" />
+                <Button
+                    Text="2"
+                    FontSize="40"
+                    AbsoluteLayout.LayoutBounds=".9, .5, .3, .5"
+                    AbsoluteLayout.LayoutFlags="PositionProportional, SizeProportional" />
+            </AbsoluteLayout>
+
+            <BoxView 
+                Grid.Column="2"
+                Grid.RowSpan="3"
+                Color="Firebrick" />
+
+            <BoxView
+                Grid.Row="1"
+                Grid.Column="0"
+                Grid.RowSpan="2"
+                Grid.ColumnSpan="2"
+                Color="Firebrick" />
+        </Grid>           
+        
+    </FlexLayout>
 </ContentPage>
