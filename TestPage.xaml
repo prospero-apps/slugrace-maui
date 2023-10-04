@@ -5,11 +5,13 @@
              Title="TestPage">
     <ContentPage.Content>
         <VerticalStackLayout>
-            <Label
-            TextColor="Firebrick"
-            FontSize="100">
-                Hey there
-            </Label>
+            <VerticalStackLayout.Children>
+                <Label
+                    TextColor="Firebrick"
+                    FontSize="100">
+                    Hey there
+                </Label>
+            </VerticalStackLayout.Children>            
         </VerticalStackLayout>
     </ContentPage.Content>    
 </ContentPage>
