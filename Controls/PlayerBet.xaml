@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Slugrace.Controls.PlayerBet">
+    <Grid
+        ColumnDefinitions="*, .7*, .1*, .7*, 1.5*, .3*, *, *, *, *">
+        <Label 
+            Text="Player 1" />        
+        <Label
+            Grid.Column="1"
+            Text="bets" />
+        <Label
+            Grid.Column="2"
+            Text="$" />
+        <Entry 
+            Grid.Column="3" />
+        <Slider 
+            Grid.Column="4"/>
+        <Label
+            Grid.Column="5"
+            Text="on" />
+        <RadioButton
+            Grid.Column="6"
+            Content="Speedster"
+            GroupName="player1" />
+        <RadioButton
+            Grid.Column="7"
+            Content="Trusty"
+            GroupName="player1" />
+        <RadioButton
+            Grid.Column="8"
+            Content="Iffy"
+            GroupName="player1" />
+        <RadioButton
+            Grid.Column="9"
+            Content="Slowpoke"
+            GroupName="player1" />
+    </Grid>
+</ContentView>

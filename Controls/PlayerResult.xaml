@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Slugrace.Controls.PlayerResult">
+    <Grid
+        ColumnDefinitions="*, *, *, *, *, *, *">
+        <Label 
+            Text="Player 1" />
+        <Label
+            Grid.Column="1"
+            Text="had $1000," />
+        <Label
+            Grid.Column="2"
+            Text="bet $250" />
+        <Label 
+            Grid.Column="3"
+            Text="on Speedster,"/>
+        <Label 
+            Grid.Column="4"
+            Text="lost $250,"/>
+        <Label
+            Grid.Column="5"
+            Text="now has $750. " />
+        <Label
+            Grid.Column="6"
+            Text="The odds were 1.64." />        
+    </Grid>
+</ContentView>

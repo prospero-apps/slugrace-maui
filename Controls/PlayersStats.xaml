@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:Slugrace.Controls"
+             x:Class="Slugrace.Controls.PlayersStats">
+    <Grid
+        RowDefinitions="*, *, *, *, *"
+        ColumnDefinitions="*">
+        <Label
+            Text="Players' Stats"
+            FontAttributes="Bold" />
+        <controls:PlayerStats 
+            Grid.Row="1" />
+        <controls:PlayerStats 
+            Grid.Row="2" />
+        <controls:PlayerStats 
+            Grid.Row="3" />
+        <controls:PlayerStats 
+            Grid.Row="4" />
+    </Grid>
+</ContentView>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:Slugrace.Controls"
+             x:Class="Slugrace.Controls.Results">
+    <Grid
+        RowDefinitions="*, 4*, *">
+        <Label 
+            Text="Results"
+            FontAttributes="Bold"/>
+        <VerticalStackLayout
+            Grid.Row="1">
+            <controls:PlayerResult />
+            <controls:PlayerResult />
+            <controls:PlayerResult />
+            <controls:PlayerResult />
+        </VerticalStackLayout>
+
+        <Button
+            Grid.Row="2"
+            Text="Next Race"
+            HorizontalOptions="Center" />
+    </Grid>
+</ContentView>

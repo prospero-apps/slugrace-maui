@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:Slugrace.Controls"
+             x:Class="Slugrace.Views.SettingsPage">
+    <VerticalStackLayout
+        Margin="10">
+        
+        <!--the Settings label-->
+        <Label 
+            Text="Settings"
+            VerticalOptions="Center" 
+            FontSize="18" />
+        
+        <!--the Players panel-->
+        <Border
+            Stroke="brown"
+            StrokeShape="RoundRectangle 10, 10, 10, 10"
+            StrokeThickness="5"
+            Padding="5"
+            >
+            <VerticalStackLayout>
+                <Label
+                    Text="The Players"
+                    FontSize="16" />
+                <HorizontalStackLayout>
+                    <RadioButton
+                        Content="1 player"
+                        GroupName="players" />
+                    <RadioButton
+                        Content="2 players"
+                        GroupName="players" />
+                    <RadioButton
+                        Content="3 players"
+                        GroupName="players" />
+                    <RadioButton
+                        Content="4 players"
+                        GroupName="players" />
+                </HorizontalStackLayout>
+
+                <Grid
+                    RowDefinitions="*"
+                    ColumnDefinitions="100, 3*, 2*"
+                    >
+                    <Label
+                        Grid.Column="1"
+                        Text="Name (max 10 characters)" />
+                    <Label
+                        Grid.Column="2"
+                        Text="Initial Money ($10 - $5000)" />                    
+                </Grid>                
+
+                <VerticalStackLayout>
+                    <controls:PlayerSettings />
+                    <controls:PlayerSettings />
+                    <controls:PlayerSettings />
+                    <controls:PlayerSettings />
+                </VerticalStackLayout>
+            </VerticalStackLayout>            
+        </Border>
+        
+        <!--the Ending Conditions panel-->
+        <Border
+            Stroke="brown"
+            StrokeShape="RoundRectangle 10, 10, 10, 10"
+            StrokeThickness="5"
+            Padding="5">
+            <VerticalStackLayout>
+                <Label
+                    Text="Ending Conditions"
+                    FontSize="16" />
+                <Grid
+                    RowDefinitions="*, *, *"
+                    ColumnDefinitions="3*, 2*" >
+                    <RadioButton
+                        Content="The game is over when there is only one player with any money left."
+                        GroupName="endingConditions" />
+                    <RadioButton
+                        Grid.Row="1"
+                        Content="The game is over not later than after a given number of races."
+                        GroupName="endingConditions" />
+                    <Entry
+                        Grid.Row="1"
+                        Grid.Column="1" />
+                    <Entry
+                        Grid.Row="2"
+                        Grid.Column="1" />
+                    <RadioButton
+                        Grid.Row="2"
+                        Content="The game is over not later than after the racing time you set has elapsed."
+                        GroupName="endingConditions" />
+                </Grid>
+            </VerticalStackLayout>
+        </Border>
+        
+        <!--the Ready button-->
+        <Button 
+            Text="Ready"
+            WidthRequest="200"
+            VerticalOptions="Center" 
+            FontSize="18" />
+    </VerticalStackLayout>
+</ContentPage>

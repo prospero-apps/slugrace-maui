@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:Slugrace.Controls"
+             x:Class="Slugrace.Controls.Bets">
+    <Grid
+        RowDefinitions="*, 4*, *">
+        <Label 
+            Text="Bets"
+            FontAttributes="Bold"/>
+        <VerticalStackLayout
+            Grid.Row="1">
+            <controls:PlayerBet />
+            <controls:PlayerBet />
+            <controls:PlayerBet />
+            <controls:PlayerBet />
+        </VerticalStackLayout>
+        
+        <Button
+            Grid.Row="2"
+            Text="Go"
+            HorizontalOptions="Center" />
+    </Grid>
+</ContentView>
