@@ -23,8 +23,7 @@
             HorizontalOptions="Center" />
         <FlexLayout
             Grid.Row="3"
-            JustifyContent="Center"
-            >
+            JustifyContent="Center">
             <Button
                 Text="Play Again"
                 FontSize="30"
