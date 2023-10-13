@@ -2,73 +2,57 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:controls="clr-namespace:Slugrace.Controls"
-             x:Class="Slugrace.Views.RacePage">
+             x:Class="Slugrace.Views.RacePage" 
+             Padding="5">
     <Grid
         RowDefinitions="1.3*, 2*, 2*"
         ColumnDefinitions="3*, 3*, 3*, 2*">
         
         <!--Game Info-->
-        <Border            
-            Stroke="brown"
-            StrokeShape="RoundRectangle 10, 10, 10, 10"
-            StrokeThickness="5"
-            Padding="5">
+        <Border>
             <controls:GameInfo/>
         </Border>
         
         <!--Slugs' Stats-->
         <Border 
-            Grid.Column="1"
-            Stroke="brown"
-            StrokeShape="RoundRectangle 10, 10, 10, 10"
-            StrokeThickness="5"
-            Padding="5">
+            Grid.Column="1">
             <controls:SlugsStats />
         </Border>
         
         <!--Players' Stats-->
         <Border    
-            Grid.Column="2"
-            Stroke="brown"
-            StrokeShape="RoundRectangle 10, 10, 10, 10"
-            StrokeThickness="5"
-            Padding="5">
+            Grid.Column="2">
             <controls:PlayersStats />
         </Border>
         
-        <!--the buttons-->
+        <!--the buttons-->         
         <VerticalStackLayout
             Grid.Column="3"
+            WidthRequest="260"
             Padding="5"
             Spacing="3">
             <Button
-                Text="End Game"/>
+                Text="End Game" />
             <Button
-                Text="Instructions"/>
-            <Button
-                Text="Sound"/>
+                Text="Instructions" />
+            <Button 
+                ImageSource="sound_on.png"
+                WidthRequest="125"
+                HorizontalOptions="End"/>
         </VerticalStackLayout>
-        
+                
         <!--Racetrack-->
         <Border    
             Grid.Row="1"
-            Grid.ColumnSpan="4"
-            Stroke="brown"
-            StrokeShape="RoundRectangle 10, 10, 10, 10"
-            StrokeThickness="5"
-            Padding="5">
+            Grid.ColumnSpan="4">
             <controls:Racetrack />
         </Border>
         
         <!--Bets/Results panel-->
         <Border    
             Grid.Row="2"
-            Grid.ColumnSpan="4"
-            Stroke="brown"
-            StrokeShape="RoundRectangle 10, 10, 10, 10"
-            StrokeThickness="5"
-            Padding="5">
-            <controls:Results />
+            Grid.ColumnSpan="4">
+            <controls:Bets />
         </Border>
         
     </Grid>

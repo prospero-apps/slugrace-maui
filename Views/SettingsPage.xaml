@@ -2,76 +2,89 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:controls="clr-namespace:Slugrace.Controls"
-             x:Class="Slugrace.Views.SettingsPage">
-    <VerticalStackLayout
-        Margin="10">
-        
+             x:Class="Slugrace.Views.SettingsPage">    
+
+    <ContentPage.Resources>
+        <Style TargetType="RadioButton">
+            <Setter Property="Margin" Value="0, 0, 0, 10" />
+        </Style>
+    </ContentPage.Resources>
+    
+    <Grid
+        Margin="10"
+        RowDefinitions="40, 2.5*, 1.5*, 50">        
+
         <!--the Settings label-->
         <Label 
             Text="Settings"
-            VerticalOptions="Center" 
-            FontSize="18" />
-        
+            FontAttributes="Bold"
+            FontSize="24" />
+
         <!--the Players panel-->
         <Border
-            Stroke="brown"
-            StrokeShape="RoundRectangle 10, 10, 10, 10"
-            StrokeThickness="5"
-            Padding="5"
-            >
-            <VerticalStackLayout>
-                <Label
-                    Text="The Players"
-                    FontSize="16" />
-                <HorizontalStackLayout>
-                    <RadioButton
-                        Content="1 player"
-                        GroupName="players" />
-                    <RadioButton
-                        Content="2 players"
-                        GroupName="players" />
-                    <RadioButton
-                        Content="3 players"
-                        GroupName="players" />
-                    <RadioButton
-                        Content="4 players"
-                        GroupName="players" />
-                </HorizontalStackLayout>
+            Grid.Row="1">
 
-                <Grid
-                    RowDefinitions="*"
-                    ColumnDefinitions="100, 3*, 2*"
-                    >
-                    <Label
-                        Grid.Column="1"
-                        Text="Name (max 10 characters)" />
-                    <Label
-                        Grid.Column="2"
-                        Text="Initial Money ($10 - $5000)" />                    
-                </Grid>                
+            <Grid>
+                <Image 
+                    Source="all_slugs.png"
+                    Aspect="Fill"
+                    Opacity=".5"/>
 
-                <VerticalStackLayout>
-                    <controls:PlayerSettings />
-                    <controls:PlayerSettings />
-                    <controls:PlayerSettings />
-                    <controls:PlayerSettings />
+                <VerticalStackLayout VerticalOptions="Center">                              
+                    <Label
+                        Text="The Players"
+                        Style="{StaticResource labelSectionTitleStyle}" />
+                    <HorizontalStackLayout>
+                        <RadioButton
+                            Content="1 player"
+                            GroupName="players" />
+                        <RadioButton
+                            Content="2 players"
+                            GroupName="players" />
+                        <RadioButton
+                            Content="3 players"
+                            GroupName="players" />
+                        <RadioButton
+                            Content="4 players"
+                            GroupName="players" />
+                    </HorizontalStackLayout>
+
+                    <Grid
+                        RowDefinitions="*"
+                        ColumnDefinitions="150, 3*, 2*">                    
+                    
+                        <Label
+                            Grid.Column="1"
+                            Text="Name (max 10 characters)" 
+                            Style="{StaticResource labelBaseStyle}"/>
+                        <Label
+                            Grid.Column="2"
+                            Text="Initial Money ($10 - $5000)" 
+                            Style="{StaticResource labelBaseStyle}"/>                    
+                    </Grid>                
+
+                    <VerticalStackLayout>
+                        <controls:PlayerSettings />
+                        <controls:PlayerSettings />
+                        <controls:PlayerSettings />
+                        <controls:PlayerSettings />
+                    </VerticalStackLayout>
                 </VerticalStackLayout>
-            </VerticalStackLayout>            
+
+            </Grid>
         </Border>
         
         <!--the Ending Conditions panel-->
         <Border
-            Stroke="brown"
-            StrokeShape="RoundRectangle 10, 10, 10, 10"
-            StrokeThickness="5"
-            Padding="5">
-            <VerticalStackLayout>
+            Grid.Row="2">
+            <VerticalStackLayout VerticalOptions="Center">
                 <Label
                     Text="Ending Conditions"
-                    FontSize="16" />
+                    Style="{StaticResource labelSectionTitleStyle}" 
+                    Margin="0, 0, 0, 10"/>
                 <Grid
                     RowDefinitions="*, *, *"
-                    ColumnDefinitions="3*, 2*" >
+                    ColumnDefinitions="4*, 2*">
                     <RadioButton
                         Content="The game is over when there is only one player with any money left."
                         GroupName="endingConditions" />
@@ -81,10 +94,14 @@
                         GroupName="endingConditions" />
                     <Entry
                         Grid.Row="1"
-                        Grid.Column="1" />
+                        Grid.Column="1" 
+                        WidthRequest="200"
+                        HorizontalOptions="Start" />
                     <Entry
                         Grid.Row="2"
-                        Grid.Column="1" />
+                        Grid.Column="1" 
+                        WidthRequest="200" 
+                        HorizontalOptions="Start" />
                     <RadioButton
                         Grid.Row="2"
                         Content="The game is over not later than after the racing time you set has elapsed."
@@ -95,9 +112,7 @@
         
         <!--the Ready button-->
         <Button 
-            Text="Ready"
-            WidthRequest="200"
-            VerticalOptions="Center" 
-            FontSize="18" />
-    </VerticalStackLayout>
+            Grid.Row="3"
+            Text="Ready" />
+    </Grid>
 </ContentPage>

@@ -8,6 +8,6 @@
 
     <ShellContent
         Title=""
-        ContentTemplate="{DataTemplate local:GameOverPage}"
-        Route="GameOverPage" />
+        ContentTemplate="{DataTemplate local:SettingsPage}"
+        Route="SettingsPage" />
 </Shell>

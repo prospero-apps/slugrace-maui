@@ -3,11 +3,16 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:controls="clr-namespace:Slugrace.Controls"
              x:Class="Slugrace.Controls.Results">
+
+    <ContentView.Resources>
+        <Style TargetType="Label" BasedOn="{StaticResource labelBaseStyle}" />
+    </ContentView.Resources>
+    
     <Grid
         RowDefinitions="*, 4*, *">
         <Label 
             Text="Results"
-            FontAttributes="Bold"/>
+            Style="{StaticResource labelSectionTitleStyle}"/>
         <VerticalStackLayout
             Grid.Row="1">
             <controls:PlayerResult />
@@ -19,6 +24,6 @@
         <Button
             Grid.Row="2"
             Text="Next Race"
-            HorizontalOptions="Center" />
+            Margin="0, 0, 0, 5"/>
     </Grid>
 </ContentView>

@@ -3,12 +3,17 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:controls="clr-namespace:Slugrace.Controls"
              x:Class="Slugrace.Controls.SlugsStats">
+
+    <ContentView.Resources>
+        <Style TargetType="Label" BasedOn="{StaticResource labelBaseStyle}" />
+    </ContentView.Resources>
+
     <Grid
         RowDefinitions="*, *, *, *, *"
         ColumnDefinitions="*">
         <Label
             Text="Slugs' Stats"
-            FontAttributes="Bold" />
+            Style="{StaticResource labelSectionTitleStyle}" />
         <controls:SlugStats 
             Grid.Row="1" />
         <controls:SlugStats 

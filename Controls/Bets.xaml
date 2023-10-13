@@ -3,11 +3,20 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:controls="clr-namespace:Slugrace.Controls"
              x:Class="Slugrace.Controls.Bets">
+
+    <ContentView.Resources>
+        <Style TargetType="Label" BasedOn="{StaticResource labelBaseStyle}" />
+        <Style TargetType="Slider">
+            <Setter Property="ThumbColor" Value="#520000" />
+            <Setter Property="MinimumTrackColor" Value="#520000" />
+        </Style>
+    </ContentView.Resources>
+
     <Grid
         RowDefinitions="*, 4*, *">
         <Label 
             Text="Bets"
-            FontAttributes="Bold"/>
+            Style="{StaticResource labelSectionTitleStyle}"/>
         <VerticalStackLayout
             Grid.Row="1">
             <controls:PlayerBet />
@@ -18,7 +27,7 @@
         
         <Button
             Grid.Row="2"
-            Text="Go"
-            HorizontalOptions="Center" />
+            Text="Go" 
+            Margin="0, 0, 0, 5"/>
     </Grid>
 </ContentView>

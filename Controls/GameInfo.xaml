@@ -2,15 +2,20 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Slugrace.Controls.GameInfo">
+
+    <ContentView.Resources>
+        <Style TargetType="Label" BasedOn="{StaticResource labelBaseStyle}" />
+    </ContentView.Resources>
+    
     <Grid
         RowDefinitions="*, *, *, *, *"
         ColumnDefinitions="3*, *">
         <Label
             Text="Game Info" 
-            FontAttributes="Bold" />
+            Style="{StaticResource labelSectionTitleStyle}" />
         <Label
             Grid.Row="1"
-            Text="Race No:" />
+            Text="Race No:"/>
         <Label
             Grid.Row="1"
             Grid.Column="1"
