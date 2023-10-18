@@ -32,6 +32,32 @@
                 <Setter Property="HorizontalOptions" Value="Center" />
                 <Setter Property="WidthRequest" Value="250" />
                 <Setter Property="HeightRequest" Value="50" />
+                <Setter Property="VisualStateManager.VisualStateGroups">
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal" />
+
+                            <VisualState x:Name="Disabled">
+                                <VisualState.Setters>
+                                    <Setter Property="Opacity" Value=".3" />
+                                </VisualState.Setters>
+                            </VisualState>
+
+                            <VisualState x:Name="PointerOver">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="#891C20" />
+                                </VisualState.Setters>
+                            </VisualState>
+
+                            <VisualState x:Name="Pressed">
+                                <VisualState.Setters>
+                                    <Setter Property="Scale" Value=".98" />
+                                    <Setter Property="BackgroundColor" Value="#891C20" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </Setter>
             </Style>
 
             <Style x:Key="labelBaseStyle" TargetType="Label">
@@ -51,12 +77,88 @@
                 <Setter Property="FontSize" Value="18" />
                 <Setter Property="CharacterSpacing" Value="1.5" />
                 <Setter Property="HorizontalOptions" Value="Start" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="PlaceholderColor" Value="#A0A0A0" />                
+                <Setter Property="VisualStateManager.VisualStateGroups">
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="ValidityStates">
+                            <VisualState x:Name="Valid">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="White" />
+                                    <Setter Property="TextColor" Value="Black" />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="Invalid">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="#FFDDEE" />
+                                    <Setter Property="TextColor" Value="Red" />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="Empty">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="White" />
+                                    <Setter Property="TextColor" Value="White" />
+                                    <Setter Property="FontAttributes" Value="None" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </Setter>
             </Style>
 
+            <ControlTemplate x:Key="RadioButtonTemplate">                
+                <FlexLayout JustifyContent="Start">
+                    <FlexLayout.Resources>
+                        <Style TargetType="Label">
+                            <Setter Property="FontSize" Value="18"/>
+                            <Setter Property="VerticalOptions" Value="Center" />
+                            <Setter Property="Margin" Value="0, 0, 40, 0" />
+                        </Style>
+                    </FlexLayout.Resources>
+                    <Grid     
+                        Margin="0, 0, 5, 0"
+                        WidthRequest="28"
+                        HeightRequest="28"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center">
+                        <Ellipse
+                                Fill="#520000"
+                                HeightRequest="24"
+                                WidthRequest="24"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center" />
+                        <Ellipse
+                                x:Name="check"
+                                Fill="#FFCC1A"
+                                HeightRequest="12"
+                                WidthRequest="12"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center" />
+                    </Grid>
+                    <ContentPresenter />
+
+                    <VisualStateManager.VisualStateGroups>
+                        <VisualStateGroupList>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Checked">
+                                    <VisualState.Setters>
+                                        <Setter TargetName="check" Property="Opacity" Value="1" />                                        
+                                    </VisualState.Setters>
+                                </VisualState>
+                                <VisualState x:Name="Unchecked">
+                                    <VisualState.Setters>
+                                        <Setter TargetName="check" Property="BackgroundColor" Value="#F3F2F1" />
+                                        <Setter TargetName="check" Property="Opacity" Value="0" />
+                                    </VisualState.Setters>
+                                </VisualState>                                
+                            </VisualStateGroup>
+                        </VisualStateGroupList>
+                    </VisualStateManager.VisualStateGroups>                    
+                </FlexLayout>
+            </ControlTemplate>
             <Style TargetType="RadioButton">
-                <Setter Property="FontSize" Value="18" />
-                <Setter Property="VerticalOptions" Value="Center" />
-            </Style>
+                <Setter Property="ControlTemplate" Value="{StaticResource RadioButtonTemplate}" />  
+            </Style>            
 
         </ResourceDictionary>
     </Application.Resources>
