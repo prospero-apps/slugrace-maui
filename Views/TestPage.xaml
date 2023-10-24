@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Slugrace"
+             x:Class="Slugrace.Views.TestPage"
+             Title="TestPage">
+    <CollectionView Margin="50">
+        <CollectionView.ItemsSource>
+            <x:Array Type="{x:Type x:Int32}">
+                <x:Int32>128</x:Int32>
+                <x:Int32>526</x:Int32>
+                <x:Int32>311</x:Int32>
+                <x:Int32>781</x:Int32>
+                <x:Int32>982</x:Int32>
+            </x:Array>
+        </CollectionView.ItemsSource>
+        <CollectionView.ItemTemplate>
+            <DataTemplate>
+                <Border HeightRequest="100" WidthRequest="500">
+                    <Grid>
+                        <Image
+                            Source="racetrack.png"
+                            Scale="1"/>
+                        <Button 
+                            Text="{Binding}" 
+                            FontSize="20" />
+                    </Grid>                    
+                </Border>                                           
+            </DataTemplate>
+        </CollectionView.ItemTemplate>
+    </CollectionView>
+</ContentPage>
+

@@ -6,8 +6,8 @@
     <ContentPage.Resources>
                 
         <Style TargetType="Label">
-            <Setter Property="FontAttributes" Value="Bold" />
-            <Setter Property="HorizontalOptions" Value="Center" />
+            <Setter Property="FontAttributes" Value="{StaticResource emphasized}" />
+            <Setter Property="HorizontalOptions" Value="{StaticResource defaultLayoutOptions}" />
             <Setter Property="FontSize" Value="40" />
         </Style>        
         

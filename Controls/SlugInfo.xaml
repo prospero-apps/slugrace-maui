@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Slugrace.Controls.SlugInfo">   
+             x:Class="Slugrace.Controls.SlugInfo">
+    
+    <ContentView.Resources>
+        <Color x:Key="infoTextColor">White</Color>
+    </ContentView.Resources>
 
     <Grid 
         Padding="5, 2, 0, 2"
@@ -10,20 +14,20 @@
         <Label 
             Text="Speedster"
             FontSize="18"
-            FontAttributes="Bold"
-            TextColor="White"/>
+            FontAttributes="{StaticResource emphasized}"
+            TextColor="{StaticResource infoTextColor}"/>
         <Label 
             Grid.Row="1"
             Text="0 wins"
             FontSize="14"
-            TextColor="White"/>
+            TextColor="{StaticResource infoTextColor}"/>
         <Label 
             Grid.Column="1"
             Grid.RowSpan="2"
-            VerticalOptions="Center"
+            VerticalOptions="{StaticResource defaultLayoutOptions}"
             Text="1.40"
             FontSize="40"
-            FontAttributes="Bold"
-            TextColor="White"/>
+            FontAttributes="{StaticResource emphasized}"
+            TextColor="{StaticResource infoTextColor}"/>
     </Grid>    
 </ContentView>
