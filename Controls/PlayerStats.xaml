@@ -2,13 +2,24 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Slugrace.Controls.PlayerStats">
+
+    <ContentView.Resources>
+        <Style TargetType="Label"
+                   BasedOn="{OnPlatform {StaticResource labelBaseStyle},
+                       Android={StaticResource androidLabelBaseStyle}}" />
+    </ContentView.Resources>
+
     <Grid
-        RowDefinitions="*"
-        ColumnDefinitions="2.5*, 1.5*">
+        RowDefinitions="*">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="{OnPlatform 2.5*, Android=*}" />
+            <ColumnDefinition Width="{OnPlatform 1.5*, Android=*}" />
+        </Grid.ColumnDefinitions>
         <Label
             Text="Player Name" />
         <Label
             Grid.Column="1"
             Text="has $1000" />
     </Grid>
+    
 </ContentView>

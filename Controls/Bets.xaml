@@ -12,11 +12,17 @@
         </Style>
     </ContentView.Resources>
 
-    <Grid
-        RowDefinitions="*, 4*, *">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="{OnPlatform *, Android=.3*}" />
+            <RowDefinition Height="{OnPlatform 4*, Android=3*}" />
+            <RowDefinition Height="{OnPlatform *, Android=.5*}" />
+        </Grid.RowDefinitions>
+
         <Label 
             Text="Bets"
-            Style="{StaticResource labelSectionTitleStyle}"/>
+            Style="{OnPlatform {StaticResource labelSectionTitleStyle},
+                Android={StaticResource androidLabelSectionTitleStyle}}" />
         <VerticalStackLayout
             Grid.Row="1">
             <controls:PlayerBet />

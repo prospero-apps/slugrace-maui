@@ -1,28 +1,38 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Slugrace.Controls.GameInfo">
-
-    <ContentView.Resources>
-        <Style TargetType="Label" BasedOn="{StaticResource labelBaseStyle}" />
-    </ContentView.Resources>
+             x:Class="Slugrace.Controls.GameInfo">    
     
-    <Grid
+    <Grid 
         RowDefinitions="*, *, *, *, *"
         ColumnDefinitions="3*, *">
+
+        <Grid.Resources>
+            <Style TargetType="Label"
+                   BasedOn="{OnPlatform {StaticResource labelBaseStyle},
+                       Android={StaticResource androidLabelBaseStyle}}" />
+        </Grid.Resources>
+
         <Label
             Text="Game Info" 
-            Style="{StaticResource labelSectionTitleStyle}" />
-        <Label
+            Style="{OnPlatform {StaticResource labelSectionTitleStyle},
+                Android={StaticResource androidLabelSectionTitleStyle}}" />
+        <Label 
             Grid.Row="1"
             Text="Race No:"/>
-        <Label
+        <Label 
             Grid.Row="1"
             Grid.Column="1"
             Text="3" />
-        <Label
-            Grid.Row="2"
-            Text="Number of races set:" />
+        <Label 
+            Grid.Row="2">
+            <Label.Text>
+                <OnPlatform x:TypeArguments="x:String">
+                    <On Platform="WinUI" Value="Number of races set:" />
+                    <On Platform="Android" Value="Total races:" />
+                </OnPlatform>
+            </Label.Text>
+        </Label>
         <Label
             Grid.Row="2"
             Grid.Column="1"

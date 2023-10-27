@@ -2,11 +2,35 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Slugrace.Controls.PlayerBet">
-    <Grid
-        ColumnDefinitions="150, .3*, .1*, 1.5*, 1.5*, .3*, *, *, *, *"
+
+    <ContentView.Resources>
+        <Color x:Key="backgroundColor">#FFF4E5</Color>
+        <Style TargetType="Label"
+                   BasedOn="{OnPlatform {StaticResource labelBaseStyle},
+                       Android={StaticResource androidLabelBaseStyle}}" />
+    </ContentView.Resources>
+    
+    <Grid 
+        BackgroundColor="{OnPlatform Android={StaticResource backgroundColor}}"
         Margin="0, 0, 0, 2">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="{OnPlatform *, Android=*}" />
+            <RowDefinition Height="{OnPlatform 0, Android=*}" />
+        </Grid.RowDefinitions>         
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="{OnPlatform 150, Android=80}" />
+            <ColumnDefinition Width="{OnPlatform .3*, Android=.8*}" />
+            <ColumnDefinition Width="{OnPlatform .1*, Android=.1*}" />
+            <ColumnDefinition Width="{OnPlatform 1.5*, Android=1.4*}" />
+            <ColumnDefinition Width="{OnPlatform 1.5*, Android=1.9*}" />
+            <ColumnDefinition Width="{OnPlatform .3*, Android=.5*}" />
+            <ColumnDefinition Width="{OnPlatform 4*, Android=0}" />
+        </Grid.ColumnDefinitions>
+
         <Label 
-            Text="Player 1" />        
+            Text="Player 1" />
         <Label
             Grid.Column="1"
             Text="bets" />
@@ -16,30 +40,93 @@
         <Entry 
             x:Name="betAmountEntry"
             Grid.Column="3"  
-            WidthRequest="200" 
+            WidthRequest="{OnPlatform 200, Android=80}" 
             Placeholder="1 - 1000"
+            BackgroundColor="{OnPlatform Android={StaticResource backgroundColor}}"
+            Keyboard="Numeric"
             TextChanged="OnBetAmountTextChanged"/>
         <Slider 
             Grid.Column="4"
             Margin="0, 0, 30, 0"/>
+
         <Label
             Grid.Column="5"
             Text="on" />
-        <RadioButton
-            Grid.Column="6"
-            Content="Speedster"
-            GroupName="player1" />
-        <RadioButton
-            Grid.Column="7"
-            Content="Trusty"
-            GroupName="player1" />
-        <RadioButton
-            Grid.Column="8"
-            Content="Iffy"
-            GroupName="player1" />
-        <RadioButton
-            Grid.Column="9"
-            Content="Slowpoke"
-            GroupName="player1" />
-    </Grid>
+
+        <Grid  
+            Grid.Row="{OnPlatform 0, Android=1}"
+            Grid.Column="{OnPlatform 6, Android=0}"
+            Grid.ColumnSpan="{OnPlatform Android=6}"
+            RowDefinitions="*"
+            ColumnDefinitions="*, *, *, *">
+
+            <RadioButton 
+                GroupName="player1">
+                <RadioButton.Content>
+                    <Label 
+                        Text="Speedster"
+                        Style="{OnPlatform {StaticResource labelBaseStyle},
+                            Android={StaticResource androidLabelBaseStyle}}">
+                        <Label.Margin>
+                            <OnPlatform x:TypeArguments="Thickness">
+                                <On Platform="WinUI" Value="0" />
+                                <On Platform="Android" Value="-12, 0, 0, 0" />
+                            </OnPlatform>
+                        </Label.Margin>                        
+                    </Label>
+                </RadioButton.Content>
+            </RadioButton>
+            <RadioButton 
+                Grid.Column="1"
+                GroupName="player1">
+                <RadioButton.Content>
+                    <Label
+                        Text="Trusty"
+                        Style="{OnPlatform {StaticResource labelBaseStyle},
+                            Android={StaticResource androidLabelBaseStyle}}">
+                        <Label.Margin>
+                            <OnPlatform x:TypeArguments="Thickness">
+                                <On Platform="WinUI" Value="0" />
+                                <On Platform="Android" Value="-12, 0, 0, 0" />
+                            </OnPlatform>
+                        </Label.Margin>
+                    </Label>
+                </RadioButton.Content>
+            </RadioButton>
+            <RadioButton 
+                Grid.Column="2"
+                GroupName="player1">
+                <RadioButton.Content>
+                    <Label
+                        Text="Iffy"
+                        Style="{OnPlatform {StaticResource labelBaseStyle},
+                            Android={StaticResource androidLabelBaseStyle}}">
+                        <Label.Margin>
+                            <OnPlatform x:TypeArguments="Thickness">
+                                <On Platform="WinUI" Value="0" />
+                                <On Platform="Android" Value="-12, 0, 0, 0" />
+                            </OnPlatform>
+                        </Label.Margin>
+                    </Label>
+                </RadioButton.Content>
+            </RadioButton>
+            <RadioButton 
+                Grid.Column="3"
+                GroupName="player1">
+                <RadioButton.Content>
+                    <Label
+                        Text="Slowpoke"
+                        Style="{OnPlatform {StaticResource labelBaseStyle},
+                            Android={StaticResource androidLabelBaseStyle}}">
+                        <Label.Margin>
+                            <OnPlatform x:TypeArguments="Thickness">
+                                <On Platform="WinUI" Value="0" />
+                                <On Platform="Android" Value="-12, 0, 0, 0" />
+                            </OnPlatform>
+                        </Label.Margin>
+                    </Label>
+                </RadioButton.Content>
+            </RadioButton>            
+        </Grid>               
+    </Grid>    
 </ContentView>

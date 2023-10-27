@@ -2,9 +2,21 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Slugrace.Controls.SlugStats">
+    
+    <ContentView.Resources>
+        <Style TargetType="Label"
+                   BasedOn="{OnPlatform {StaticResource labelBaseStyle},
+                       Android={StaticResource androidLabelBaseStyle}}" />
+    </ContentView.Resources>
+    
     <Grid
-        RowDefinitions="*"
-        ColumnDefinitions="2*, *, *">
+        RowDefinitions="*">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="{OnPlatform 2*, Android=1.8*}" />
+            <ColumnDefinition Width="{OnPlatform *, Android=1.4*}" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
         <Label
             Text="Slug Name" />
         <Label
@@ -14,4 +26,5 @@
             Grid.Column="2"
             Text="46%" />
     </Grid>
+    
 </ContentView>

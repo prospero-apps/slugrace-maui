@@ -13,15 +13,20 @@
         </Style>
     </ContentPage.Resources>
     
-    <Grid
-        Margin="10"
-        RowDefinitions="40, 2.5*, 1.5*, 50">        
+    <Grid                
+        Margin="{OnPlatform 10, Android=2}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="{OnPlatform 40, Android=30}" />
+            <RowDefinition Height="2.5*" />
+            <RowDefinition Height="1.5*" />
+            <RowDefinition Height="50" />
+        </Grid.RowDefinitions>
 
         <!--the Settings label-->
         <Label 
             Text="Settings"
             FontAttributes="{StaticResource emphasized}"
-            FontSize="24" />
+            FontSize="{OnPlatform 24, Android=20}" />
 
         <!--the Players panel-->
         <Border
@@ -29,41 +34,104 @@
 
             <Grid>
                 <Image 
-                    Source="all_slugs.png"
-                    Aspect="Fill"
+                    Source="all_slugs.png"                    
+                    Aspect="{OnPlatform Fill, Android=AspectFill}"                    
                     Opacity=".5"/>
 
-                <VerticalStackLayout VerticalOptions="{StaticResource defaultLayoutOptions}">                              
-                    <Label
-                        Text="The Players"
-                        Style="{StaticResource labelSectionTitleStyle}" />
+                <VerticalStackLayout VerticalOptions="{StaticResource defaultLayoutOptions}">                    
+                    <Label                        
+                        Style="{StaticResource labelSectionTitleStyle}">
+                        <Label.Text>
+                            <OnPlatform x:TypeArguments="x:String">
+                                <On Platform="WinUI" Value="The Players" />
+                                <On Platform="Android" Value="How many players?" />                                
+                            </OnPlatform>
+                        </Label.Text>
+                    </Label>
+
                     <HorizontalStackLayout>
-                        <RadioButton
-                            Content="1 player" 
-                            GroupName="players" />
-                        <RadioButton
-                            Content="2 players" 
-                            GroupName="players" />
-                        <RadioButton
-                            Content="3 players"
-                            GroupName="players" />
-                        <RadioButton
-                            Content="4 players"
-                            GroupName="players" />
+                        <RadioButton                             
+                            GroupName="players">
+                            <RadioButton.Content>
+                                <Label>
+                                    <Label.Text>
+                                        <OnPlatform x:TypeArguments="x:String">
+                                            <On Platform="WinUI" Value="1 player" />
+                                            <On Platform="Android" Value="1" />
+                                        </OnPlatform>
+                                    </Label.Text>
+                                </Label>                                
+                            </RadioButton.Content>
+                        </RadioButton>
+                        
+                        <RadioButton                             
+                            GroupName="players">
+                            <RadioButton.Content>
+                                <Label>
+                                    <Label.Text>
+                                        <OnPlatform x:TypeArguments="x:String">
+                                            <On Platform="WinUI" Value="2 players" />
+                                            <On Platform="Android" Value="2" />
+                                        </OnPlatform>
+                                    </Label.Text>                                    
+                                </Label>                                
+                            </RadioButton.Content>
+                        </RadioButton>
+                        
+                        <RadioButton                             
+                            GroupName="players">
+                            <RadioButton.Content>
+                                <Label>
+                                    <Label.Text>
+                                        <OnPlatform x:TypeArguments="x:String">
+                                            <On Platform="WinUI" Value="3 players" />
+                                            <On Platform="Android" Value="3" />
+                                        </OnPlatform>
+                                    </Label.Text>
+                                </Label>                                
+                            </RadioButton.Content>
+                        </RadioButton>
+                        
+                        <RadioButton                             
+                            GroupName="players">
+                            <RadioButton.Content>
+                                <Label>
+                                    <Label.Text>
+                                        <OnPlatform x:TypeArguments="x:String">
+                                            <On Platform="WinUI" Value="4 players" />
+                                            <On Platform="Android" Value="4" />
+                                        </OnPlatform>
+                                    </Label.Text>
+                                </Label>                                
+                            </RadioButton.Content>
+                        </RadioButton>
                     </HorizontalStackLayout>
 
                     <Grid
                         RowDefinitions="*"
                         ColumnDefinitions="150, 3*, 2*">                    
-                    
+                                           
                         <Label
-                            Grid.Column="1"
-                            Text="Name (max 10 characters)" 
-                            Style="{StaticResource labelBaseStyle}"/>
+                            Grid.Column="1" 
+                            Style="{StaticResource labelBaseStyle}">
+                            <Label.Text>
+                                <OnPlatform x:TypeArguments="x:String">
+                                    <On Platform="WinUI" Value="Name (max 10 characters)" />
+                                    <On Platform="Android" Value="Name" />
+                                </OnPlatform>
+                            </Label.Text>
+                        </Label>
+                        
                         <Label
-                            Grid.Column="2"
-                            Text="Initial Money ($10 - $5000)" 
-                            Style="{StaticResource labelBaseStyle}"/>                    
+                            Grid.Column="2" 
+                            Style="{StaticResource labelBaseStyle}">
+                            <Label.Text>
+                                <OnPlatform x:TypeArguments="x:String">
+                                    <On Platform="WinUI" Value="Initial Money ($10 - $5000)" />
+                                    <On Platform="Android" Value="Money" />
+                                </OnPlatform>
+                            </Label.Text>
+                        </Label>
                     </Grid>                
 
                     <VerticalStackLayout>
@@ -73,7 +141,6 @@
                         <controls:PlayerSettings />
                     </VerticalStackLayout>
                 </VerticalStackLayout>
-
             </Grid>
         </Border>
         
@@ -84,18 +151,39 @@
                 <Label
                     Text="Ending Conditions"
                     Style="{StaticResource labelSectionTitleStyle}" 
-                    Margin="0, 0, 0, 10"/>
+                    Margin="0, 0, 0, 10"/>    
+                
                 <Grid
                     RowDefinitions="*, *, *"
                     ColumnDefinitions="4*, 2*">
                     <RadioButton
-                        Content="The game is over when there is only one player with any money left."
                         IsChecked="True"
-                        GroupName="endingConditions" />                    
+                        GroupName="endingConditions">
+                        <RadioButton.Content>
+                            <Label>
+                                <Label.Text>
+                                    <OnPlatform x:TypeArguments="x:String">
+                                        <On Platform="WinUI" Value="The game is over when there is only one player with any money left." />
+                                        <On Platform="Android" Value="last player left" />
+                                    </OnPlatform>
+                                </Label.Text>
+                            </Label>                            
+                        </RadioButton.Content>
+                    </RadioButton>
+                    
                     <RadioButton
                         Grid.Row="1"
-                        Content="The game is over not later than after a given number of races."
                         GroupName="endingConditions">
+                        <RadioButton.Content>
+                            <Label>
+                                <Label.Text>
+                                    <OnPlatform x:TypeArguments="x:String">
+                                        <On Platform="WinUI" Value="The game is over not later than after a given number of races." />
+                                        <On Platform="Android" Value="number of races" />
+                                    </OnPlatform>
+                                </Label.Text>
+                            </Label>                            
+                        </RadioButton.Content>
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroup x:Name="CommonStates">
                                 <VisualState x:Name="Unchecked" />
@@ -108,20 +196,37 @@
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
                     </RadioButton>
+                    
                     <Entry
                         x:Name="maxRacesEntry"
                         Grid.Row="1"
                         Grid.Column="1" 
-                        Placeholder="Set max number of races (1-100)"
-                        WidthRequest="{StaticResource entryWidth}"
+                        WidthRequest="{OnPlatform {StaticResource entryWidth}, Android=100}"
                         HorizontalOptions="Start"                         
                         Opacity="{StaticResource invisible}"
                         IsEnabled="False"                        
-                        TextChanged="OnMaxRacesTextChanged"/>
+                        TextChanged="OnMaxRacesTextChanged">
+                        <Entry.Placeholder>
+                            <OnPlatform x:TypeArguments="x:String">
+                                <On Platform="WinUI" Value="Set max number of races (1-100)" />
+                                <On Platform="Android" Value="1-100 races" />
+                            </OnPlatform>
+                        </Entry.Placeholder>
+                    </Entry>
+                                        
                     <RadioButton
                         Grid.Row="2"
-                        Content="The game is over not later than after the racing time you set has elapsed."
                         GroupName="endingConditions">
+                        <RadioButton.Content>
+                            <Label>
+                                <Label.Text>
+                                    <OnPlatform x:TypeArguments="x:String">
+                                        <On Platform="WinUI" Value="The game is over not later than after the racing time you set has elapsed." />
+                                        <On Platform="Android" Value="specified time" />
+                                    </OnPlatform>
+                                </Label.Text>
+                            </Label>                            
+                        </RadioButton.Content>
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroup x:Name="CommonStates">
                                 <VisualState x:Name="Unchecked" />
@@ -134,16 +239,23 @@
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
                     </RadioButton>
+                                       
                     <Entry
                         x:Name="maxTimeEntry"
                         Grid.Row="2"
                         Grid.Column="1" 
-                        Placeholder="Set max game time (1-120 min)"
-                        WidthRequest="{StaticResource entryWidth}" 
+                        WidthRequest="{OnPlatform {StaticResource entryWidth}, Android=100}" 
                         HorizontalOptions="Start" 
                         Opacity="{StaticResource invisible}"
                         IsEnabled="False"
-                        TextChanged="OnMaxTimeTextChanged"/>                    
+                        TextChanged="OnMaxTimeTextChanged">
+                        <Entry.Placeholder>
+                            <OnPlatform x:TypeArguments="x:String">
+                                <On Platform="WinUI" Value="Set max game time (1-120 min)" />
+                                <On Platform="Android" Value="1-120 min" />
+                            </OnPlatform>
+                        </Entry.Placeholder>
+                    </Entry>
                 </Grid>
             </VerticalStackLayout>
         </Border>

@@ -16,7 +16,9 @@
         </CollectionView.ItemsSource>
         <CollectionView.ItemTemplate>
             <DataTemplate>
-                <Border HeightRequest="100" WidthRequest="500">
+                <Border 
+                    HeightRequest="{OnIdiom 100, Phone=80}" 
+                    WidthRequest="{OnPlatform 500, Android=300}">
                     <Grid>
                         <Image
                             Source="racetrack.png"

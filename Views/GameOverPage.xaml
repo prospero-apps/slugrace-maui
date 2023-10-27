@@ -3,21 +3,30 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Slugrace.Views.GameOverPage">
 
-    <ContentPage.Resources>
-                
+    <ContentPage.Resources>                
         <Style TargetType="Label">
-            <Setter Property="FontAttributes" Value="{StaticResource emphasized}" />
-            <Setter Property="HorizontalOptions" Value="{StaticResource defaultLayoutOptions}" />
-            <Setter Property="FontSize" Value="40" />
-        </Style>        
-        
+            <Setter Property="FontAttributes" 
+                    Value="{StaticResource emphasized}" />
+            <Setter Property="HorizontalOptions" 
+                    Value="{StaticResource defaultLayoutOptions}" />
+            <Setter Property="FontSize" 
+                    Value="{OnPlatform 40, Android=30}" />
+        </Style>                
     </ContentPage.Resources>
     
     <Grid
         RowDefinitions="2*, 2*, 2*, *">
+
+        <Grid.Margin>
+            <OnPlatform x:TypeArguments="Thickness">
+                <On Platform="WinUI" Value="0" />
+                <On Platform="Android" Value="20" />
+            </OnPlatform>
+        </Grid.Margin>
+        
         <Label 
             Text="Game Over"
-            FontSize="120" />
+            FontSize="{OnPlatform 120, Android=65}" />
         <Label 
             Grid.Row="1"
             Text="There's only one player with any money left." />

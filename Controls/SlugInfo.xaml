@@ -15,19 +15,21 @@
             Text="Speedster"
             FontSize="18"
             FontAttributes="{StaticResource emphasized}"
-            TextColor="{StaticResource infoTextColor}"/>
+            TextColor="{StaticResource infoTextColor}"
+            Opacity="{OnPlatform 1, Android=0}" />
         <Label 
             Grid.Row="1"
             Text="0 wins"
             FontSize="14"
-            TextColor="{StaticResource infoTextColor}"/>
+            TextColor="{StaticResource infoTextColor}"
+            Opacity="{OnPlatform 1, Android=0}" />
         <Label 
             Grid.Column="1"
             Grid.RowSpan="2"
             VerticalOptions="{StaticResource defaultLayoutOptions}"
             Text="1.40"
-            FontSize="40"
+            FontSize="{OnPlatform 40, Android=12}"
             FontAttributes="{StaticResource emphasized}"
             TextColor="{StaticResource infoTextColor}"/>
-    </Grid>    
+    </Grid>
 </ContentView>

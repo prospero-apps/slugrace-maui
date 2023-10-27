@@ -5,12 +5,12 @@
              x:Class="Slugrace.Controls.TrackImage">
     <AbsoluteLayout>
         <!--Racetrack-->
-        <Image
-            Source="racetrack.png"
+        <Image 
+            Source="racetrack.png" 
             AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
             AbsoluteLayout.LayoutFlags="All"
             Aspect="Fill"/>
-        
+
         <!--Speedster-->
         <controls:SlugImage            
             AbsoluteLayout.LayoutBounds=".1, .05, .15, .15"
@@ -42,5 +42,5 @@
         <controls:SlugInfo 
             AbsoluteLayout.LayoutBounds="0, 1.02, 1, .25"
             AbsoluteLayout.LayoutFlags="All"/>
-    </AbsoluteLayout>           
+    </AbsoluteLayout>  
 </ContentView>

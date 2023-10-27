@@ -13,7 +13,8 @@
         ColumnDefinitions="*">
         <Label
             Text="Players' Stats"
-            Style="{StaticResource labelSectionTitleStyle}" />
+            Style="{OnPlatform {StaticResource labelSectionTitleStyle},
+                Android={StaticResource androidLabelSectionTitleStyle}}" />
         <controls:PlayerStats 
             Grid.Row="1" />
         <controls:PlayerStats 

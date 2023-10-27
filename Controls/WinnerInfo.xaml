@@ -9,16 +9,17 @@
             <Setter Property="HorizontalOptions" Value="Center" />
         </Style>
     </ContentView.Resources>
-    
+
     <Grid
         RowDefinitions=".6*, *, 3*">
+        
         <Label 
             Text="The winner is"
-            FontSize="28" />
+            FontSize="{OnPlatform 28, Android=10}" />
         <Label 
             Grid.Row="1"
             Text="Speedster"
-            FontSize="36" />
+            FontSize="{OnPlatform 36, Android=12}" />
         <Image
             Grid.Row="2"
             Source="speedster.png" />

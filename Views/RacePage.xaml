@@ -4,31 +4,53 @@
              xmlns:controls="clr-namespace:Slugrace.Controls"
              x:Class="Slugrace.Views.RacePage" 
              Padding="5">
-    <Grid
-        RowDefinitions="1.3*, 2*, 2*"
-        ColumnDefinitions="3*, 3*, 3*, 2*">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="{OnPlatform 1.3*, Android=2.6*}" />
+            <RowDefinition Height="{OnPlatform 2*, Android=.7*}" />
+            <RowDefinition Height="{OnPlatform 2*, Android=*}" />
+            <RowDefinition Height="{OnPlatform 0, Android=*}" />
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="{OnPlatform 3*, Android=*}" />
+            <ColumnDefinition Width="{OnPlatform 3*, Android=*}" />
+            <ColumnDefinition Width="{OnPlatform 3*, Android=0}" />
+            <ColumnDefinition Width="{OnPlatform 2*, Android=0}" />
+        </Grid.ColumnDefinitions>
         
-        <!--Game Info-->
-        <Border>
+        <!--Game Info-->        
+        <Border
+            Grid.Row="{OnPlatform 0, Android=3}"
+            Grid.Column="{OnPlatform 0, Android=1}"
+            HorizontalOptions="{OnPlatform Android=Fill}">
             <controls:GameInfo/>
-        </Border>
-        
-        <!--Slugs' Stats-->
+        </Border>     
+
+        <!--Slugs' Stats-->        
         <Border 
-            Grid.Column="1">
+            Grid.Row="{OnPlatform 0, Android=2}"
+            Grid.Column="{OnPlatform 1, Android=0}"
+            HorizontalOptions="{OnPlatform Android=Fill}">
             <controls:SlugsStats />
-        </Border>
-        
-        <!--Players' Stats-->
-        <Border    
-            Grid.Column="2">
+        </Border>        
+
+        <!--Players' Stats-->        
+        <Border 
+            Grid.Row="{OnPlatform 0, Android=2}"
+            Grid.Column="{OnPlatform 2, Android=1}"
+            HorizontalOptions="{OnPlatform Android=Fill}">
             <controls:PlayersStats />
         </Border>
         
-        <!--the buttons-->         
+        <!--the buttons-->        
         <VerticalStackLayout
-            Grid.Column="3"
-            WidthRequest="260"
+            Grid.Row="{OnPlatform 0, Android=3}"
+            Grid.Column="{OnPlatform 3, Android=0}"
+            HorizontalOptions="{OnPlatform Android=Fill}"
+            VerticalOptions="{OnPlatform Android=Center}"            
+            WidthRequest="{OnPlatform 260, Android=150}"
             Padding="5"
             Spacing="3">
             <Button
@@ -37,23 +59,24 @@
                 Text="Instructions" />
             <Button 
                 ImageSource="sound_on.png"
-                WidthRequest="125"
-                HorizontalOptions="End"/>
+                WidthRequest="{OnPlatform 125, Android=150}"
+                HorizontalOptions="{OnPlatform Default=End, Android=Center}"/>
         </VerticalStackLayout>
                 
-        <!--Racetrack-->
-        <Border    
-            Grid.Row="1"
-            Grid.ColumnSpan="4">
+        <!--Racetrack-->        
+        <Border   
+            Grid.Row="1"                                 
+            Grid.ColumnSpan="4"
+            HorizontalOptions="{OnPlatform Android=Fill}">
             <controls:Racetrack />
         </Border>
-        
-        <!--Bets/Results panel-->
+                
+        <!--Bets/Results panel-->        
         <Border    
-            Grid.Row="2"
-            Grid.ColumnSpan="4">
+            Grid.Row="{OnPlatform 2, Android=0}"
+            Grid.ColumnSpan="4"
+            HorizontalOptions="{OnPlatform Android=Fill}">
             <controls:Bets />
         </Border>
-        
-    </Grid>
+    </Grid>  
 </ContentPage>
