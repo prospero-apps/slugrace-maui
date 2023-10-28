@@ -58,7 +58,7 @@
             <Button
                 Text="Instructions" />
             <Button 
-                ImageSource="sound_on.png"
+                ImageSource="{AppThemeBinding Light=sound_on.png, Dark=sound_on_dark.png}" 
                 WidthRequest="{OnPlatform 125, Android=150}"
                 HorizontalOptions="{OnPlatform Default=End, Android=Center}"/>
         </VerticalStackLayout>

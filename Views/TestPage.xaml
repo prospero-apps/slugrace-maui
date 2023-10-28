@@ -3,33 +3,24 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:Slugrace"
              x:Class="Slugrace.Views.TestPage"
-             Title="TestPage">
-    <CollectionView Margin="50">
-        <CollectionView.ItemsSource>
-            <x:Array Type="{x:Type x:Int32}">
-                <x:Int32>128</x:Int32>
-                <x:Int32>526</x:Int32>
-                <x:Int32>311</x:Int32>
-                <x:Int32>781</x:Int32>
-                <x:Int32>982</x:Int32>
-            </x:Array>
-        </CollectionView.ItemsSource>
-        <CollectionView.ItemTemplate>
-            <DataTemplate>
-                <Border 
-                    HeightRequest="{OnIdiom 100, Phone=80}" 
-                    WidthRequest="{OnPlatform 500, Android=300}">
-                    <Grid>
-                        <Image
-                            Source="racetrack.png"
-                            Scale="1"/>
-                        <Button 
-                            Text="{Binding}" 
-                            FontSize="20" />
-                    </Grid>                    
-                </Border>                                           
-            </DataTemplate>
-        </CollectionView.ItemTemplate>
-    </CollectionView>
+             Title="TestPage"
+             Padding="20"
+             BackgroundColor="DarkGoldenrod">
+    <FlexLayout
+        Direction="Column"
+        JustifyContent="SpaceEvenly"
+        AlignItems="Center"
+        BackgroundColor="{AppThemeBinding Light=White, Dark=Black}">
+        <Label
+            Text="Hey, what a beautiful day!"            
+            FontSize="26" />
+        <Image 
+            Source="Speedster.png" 
+            Scale=".9"/>
+        <Button
+            Text="Press"
+            BackgroundColor="{AppThemeBinding Light=Black, Dark=White}"
+            TextColor="{AppThemeBinding Light=White, Dark=Black}" />
+    </FlexLayout>
 </ContentPage>
 

@@ -4,14 +4,18 @@
              x:Class="Slugrace.Controls.PlayerBet">
 
     <ContentView.Resources>
-        <Color x:Key="backgroundColor">#FFF4E5</Color>
+        <Color x:Key="backgroundColorLight">#FFF4E5</Color>
+        <Color x:Key="backgroundColorDark">Black</Color>
         <Style TargetType="Label"
                    BasedOn="{OnPlatform {StaticResource labelBaseStyle},
                        Android={StaticResource androidLabelBaseStyle}}" />
     </ContentView.Resources>
     
     <Grid 
-        BackgroundColor="{OnPlatform Android={StaticResource backgroundColor}}"
+        BackgroundColor="{OnPlatform 
+            Android={AppThemeBinding 
+                Light={StaticResource backgroundColorLight},
+                Dark={StaticResource backgroundColorDark}}}"
         Margin="0, 0, 0, 2">
 
         <Grid.RowDefinitions>
@@ -22,7 +26,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="{OnPlatform 150, Android=80}" />
             <ColumnDefinition Width="{OnPlatform .3*, Android=.8*}" />
-            <ColumnDefinition Width="{OnPlatform .1*, Android=.1*}" />
+            <ColumnDefinition Width="{OnPlatform .1*, Android=.15*}" />
             <ColumnDefinition Width="{OnPlatform 1.5*, Android=1.4*}" />
             <ColumnDefinition Width="{OnPlatform 1.5*, Android=1.9*}" />
             <ColumnDefinition Width="{OnPlatform .3*, Android=.5*}" />
@@ -42,7 +46,9 @@
             Grid.Column="3"  
             WidthRequest="{OnPlatform 200, Android=80}" 
             Placeholder="1 - 1000"
-            BackgroundColor="{OnPlatform Android={StaticResource backgroundColor}}"
+            BackgroundColor="{OnPlatform 
+                Android=Transparent}"
+            TextColor="{AppThemeBinding Dark=White}"
             Keyboard="Numeric"
             TextChanged="OnBetAmountTextChanged"/>
         <Slider 

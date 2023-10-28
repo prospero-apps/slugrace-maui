@@ -4,14 +4,18 @@
              x:Class="Slugrace.Controls.PlayerResult">
 
     <ContentView.Resources>
-        <Color x:Key="backgroundColor">#FFF4E5</Color>
+        <Color x:Key="backgroundColorLight">#FFF4E5</Color>
+        <Color x:Key="backgroundColorDark">Black</Color>
         <Style TargetType="Label"
                    BasedOn="{OnPlatform {StaticResource labelBaseStyle},
                        Android={StaticResource androidLabelBaseStyle}}" />
     </ContentView.Resources>
 
     <Grid 
-        BackgroundColor="{OnPlatform Android={StaticResource backgroundColor}}"
+        BackgroundColor="{OnPlatform 
+            Android={AppThemeBinding 
+                Light={StaticResource backgroundColorLight},
+                Dark={StaticResource backgroundColorDark}}}"
         RowSpacing="{OnPlatform 0, Android=10}"
         Margin="0, 0, 0, 5">
 

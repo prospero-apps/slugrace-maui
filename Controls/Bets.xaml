@@ -7,8 +7,14 @@
     <ContentView.Resources>
         <Style TargetType="Label" BasedOn="{StaticResource labelBaseStyle}" />
         <Style TargetType="Slider">
-            <Setter Property="ThumbColor" Value="{StaticResource mainButtonColor}" />
-            <Setter Property="MinimumTrackColor" Value="{StaticResource mainButtonColor}" />
+            <Setter Property="ThumbColor" 
+                    Value="{AppThemeBinding 
+                        Light={StaticResource mainButtonColor},
+                        Dark={StaticResource buttonTextColor}}" />
+            <Setter Property="MinimumTrackColor" 
+                    Value="{AppThemeBinding 
+                        Light={StaticResource mainButtonColor},
+                        Dark={StaticResource buttonTextColor}}" />
         </Style>
     </ContentView.Resources>
 

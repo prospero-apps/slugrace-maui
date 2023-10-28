@@ -15,7 +15,8 @@
             <Color x:Key="mainButtonColor">#520000</Color>
             <Color x:Key="buttonTextColor">#FFCC1A</Color>
             <Color x:Key="pressedButtonColor">#891C20</Color>
-            <Color x:Key="normalEntryColor">White</Color>
+            <Color x:Key="normalEntryColor">White</Color>            
+            <Color x:Key="lightPrimaryColor">#FFFFCC</Color>
             
             <!--Layout options-->
             <LayoutOptions x:Key="defaultLayoutOptions" Alignment="Center" />
@@ -29,11 +30,15 @@
 
             <Style TargetType="ContentPage"
                    ApplyToDerivedTypes="True">
-                <Setter Property="BackgroundColor" Value="#FFFFCC" />
+                <Setter Property="BackgroundColor" 
+                        Value="{AppThemeBinding Light={StaticResource lightPrimaryColor}, Dark=Black}" />
             </Style>
 
             <Style TargetType="Border">
-                <Setter Property="Stroke" Value="{StaticResource mainButtonColor}" />
+                <Setter Property="Stroke" 
+                        Value="{AppThemeBinding 
+                            Light={StaticResource mainButtonColor}, 
+                            Dark={StaticResource lightPrimaryColor}}"/>
                 <Setter Property="StrokeShape" Value="RoundRectangle 10, 10, 10, 10" />                
                 <Setter Property="StrokeThickness" 
                         Value="{OnPlatform 5, Android=1}" />
@@ -43,8 +48,14 @@
             </Style>
 
             <Style TargetType="Button">
-                <Setter Property="BackgroundColor" Value="{StaticResource mainButtonColor}" />
-                <Setter Property="TextColor" Value="{StaticResource buttonTextColor}" />
+                <Setter Property="BackgroundColor" 
+                        Value="{AppThemeBinding 
+                            Light={StaticResource mainButtonColor},
+                            Dark={StaticResource buttonTextColor}}"/>
+                <Setter Property="TextColor" 
+                        Value="{AppThemeBinding 
+                            Light={StaticResource buttonTextColor},
+                            Dark={StaticResource mainButtonColor}}" />
                 <Setter Property="FontSize" Value="{StaticResource defaultFontSize}" />                              
                 <Setter Property="FontAttributes" Value="{StaticResource emphasized}" />
                 <Setter Property="HorizontalOptions" Value="{StaticResource defaultLayoutOptions}" /> 
@@ -65,14 +76,20 @@
 
                             <VisualState x:Name="PointerOver">
                                 <VisualState.Setters>
-                                    <Setter Property="BackgroundColor" Value="{StaticResource pressedButtonColor}" />
+                                    <Setter Property="BackgroundColor" 
+                                            Value="{AppThemeBinding 
+                                                Light={StaticResource pressedButtonColor},
+                                                Dark={StaticResource lightPrimaryColor}}" />
                                 </VisualState.Setters>
                             </VisualState>
 
                             <VisualState x:Name="Pressed">
                                 <VisualState.Setters>
                                     <Setter Property="Scale" Value=".98" />
-                                    <Setter Property="BackgroundColor" Value="{StaticResource pressedButtonColor}" />
+                                    <Setter Property="BackgroundColor" 
+                                            Value="{AppThemeBinding 
+                                                Light={StaticResource pressedButtonColor},
+                                                Dark={StaticResource lightPrimaryColor}}" />
                                 </VisualState.Setters>
                             </VisualState>
                         </VisualStateGroup>
@@ -105,7 +122,7 @@
             </Style>
 
             <Style TargetType="Entry">
-                <Setter Property="BackgroundColor" Value="{StaticResource normalEntryColor}" />
+                <Setter Property="BackgroundColor" Value="{StaticResource normalEntryColor}" />                
                 <Setter Property="FontSize" 
                         Value="{OnPlatform {StaticResource defaultFontSize}, Android=12}" />
                 <Setter Property="CharacterSpacing" Value="1.5" />
