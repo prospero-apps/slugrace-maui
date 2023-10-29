@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:controls="clr-namespace:Slugrace.Controls"
+             xmlns:local="clr-namespace:Slugrace.Controls"
              x:Class="Slugrace.Controls.Results">
 
     <ContentView.Resources>
@@ -22,10 +22,10 @@
         <VerticalStackLayout 
             Grid.Row="1"
             Spacing="{OnPlatform 0, Android=15}">
-            <controls:PlayerResult />
-            <controls:PlayerResult />
-            <controls:PlayerResult />
-            <controls:PlayerResult />
+            <local:PlayerResult />
+            <local:PlayerResult />
+            <local:PlayerResult />
+            <local:PlayerResult />
         </VerticalStackLayout>
 
         <Button
