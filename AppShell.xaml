@@ -3,11 +3,11 @@
     x:Class="Slugrace.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:Slugrace.Views"
+    xmlns:views="clr-namespace:Slugrace.Views"
     Shell.FlyoutBehavior="Disabled">
 
     <ShellContent
         Title=""
-        ContentTemplate="{DataTemplate local:SettingsPage}"
+        ContentTemplate="{DataTemplate views:SettingsPage}"
         Route="SettingsPage" />
 </Shell>
