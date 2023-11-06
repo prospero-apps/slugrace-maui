@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:Slugrace.Controls"
+             xmlns:controls="clr-namespace:Slugrace.Controls"
              x:Class="Slugrace.Views.RacePage" 
              Padding="5">
 
@@ -25,7 +25,7 @@
             Grid.Row="{OnPlatform 0, Android=3}"
             Grid.Column="{OnPlatform 0, Android=1}"
             HorizontalOptions="{OnPlatform Android=Fill}">
-            <local:GameInfo/>
+            <controls:GameInfo/>
         </Border>     
 
         <!--Slugs' Stats-->        
@@ -33,7 +33,7 @@
             Grid.Row="{OnPlatform 0, Android=2}"
             Grid.Column="{OnPlatform 1, Android=0}"
             HorizontalOptions="{OnPlatform Android=Fill}">
-            <local:SlugsStats />
+            <controls:SlugsStats />
         </Border>        
 
         <!--Players' Stats-->        
@@ -41,7 +41,7 @@
             Grid.Row="{OnPlatform 0, Android=2}"
             Grid.Column="{OnPlatform 2, Android=1}"
             HorizontalOptions="{OnPlatform Android=Fill}">
-            <local:PlayersStats />
+            <controls:PlayersStats />
         </Border>
         
         <!--the buttons-->        
@@ -68,7 +68,7 @@
             Grid.Row="1"                                 
             Grid.ColumnSpan="4"
             HorizontalOptions="{OnPlatform Android=Fill}">
-            <local:Racetrack />
+            <controls:Racetrack />
         </Border>
                 
         <!--Bets/Results panel-->        
@@ -76,7 +76,7 @@
             Grid.Row="{OnPlatform 2, Android=0}"
             Grid.ColumnSpan="4"
             HorizontalOptions="{OnPlatform Android=Fill}">
-            <local:Bets />
+            <controls:Bets />
         </Border>
     </Grid>  
 </ContentPage>

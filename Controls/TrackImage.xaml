@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:Slugrace.Controls"
+             xmlns:controls="clr-namespace:Slugrace.Controls"
              x:Class="Slugrace.Controls.TrackImage">
     <AbsoluteLayout>
         <!--Racetrack-->
@@ -12,34 +12,34 @@
             Aspect="Fill"/>
 
         <!--Speedster-->
-        <local:SlugImage            
+        <controls:SlugImage            
             AbsoluteLayout.LayoutBounds=".1, .05, .15, .15"
             AbsoluteLayout.LayoutFlags="All"/>
-        <local:SlugInfo 
+        <controls:SlugInfo 
             AbsoluteLayout.LayoutBounds="0, 0, 1, .25"
             AbsoluteLayout.LayoutFlags="All"/>
         
         <!--Trusty-->
-        <local:SlugImage            
+        <controls:SlugImage            
             AbsoluteLayout.LayoutBounds=".1, .35, .15, .15"
             AbsoluteLayout.LayoutFlags="All"/>
-        <local:SlugInfo 
+        <controls:SlugInfo 
             AbsoluteLayout.LayoutBounds="0, .35, 1, .25"
             AbsoluteLayout.LayoutFlags="All"/>
         
         <!--Iffy-->
-        <local:SlugImage            
+        <controls:SlugImage            
             AbsoluteLayout.LayoutBounds=".1, .65, .15, .15"
             AbsoluteLayout.LayoutFlags="All"/>
-        <local:SlugInfo 
+        <controls:SlugInfo 
             AbsoluteLayout.LayoutBounds="0, .68, 1, .25"
             AbsoluteLayout.LayoutFlags="All"/>
         
         <!--Slowpoke-->
-        <local:SlugImage            
+        <controls:SlugImage            
             AbsoluteLayout.LayoutBounds=".1, .95, .15, .15"
             AbsoluteLayout.LayoutFlags="All"/>
-        <local:SlugInfo 
+        <controls:SlugInfo 
             AbsoluteLayout.LayoutBounds="0, 1.02, 1, .25"
             AbsoluteLayout.LayoutFlags="All"/>
     </AbsoluteLayout>  
