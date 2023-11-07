@@ -1,40 +1,29 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:converters="clr-namespace:Slugrace.Converters"
-             x:Class="Slugrace.Views.TestPage"             
+             xmlns:viewmodels="clr-namespace:Slugrace.ViewModels" 
+             x:DataType="viewmodels:TestViewModel"
+             x:Class="Slugrace.Views.TestPage"  
              Title="TestPage"
              Padding="50">
-
-    <ContentPage.Resources>
-        <Style TargetType="Label">
-            <Setter Property="FontSize" Value="30" />
-        </Style>
-        <converters:AllGreaterThanZeroMultiConverter x:Key="AllGreaterThanZeroConverter" />
-    </ContentPage.Resources>
     
-    <VerticalStackLayout>
-        <Label Text="At least 1 character" />
-        <Entry x:Name="entry" WidthRequest="100" Margin="0, 0, 0, 20" />
-
-        <Label Text="A positive number" />
-        <HorizontalStackLayout>
-            <Stepper x:Name="stepper" Margin="0, 0, 0, 20" />
-            <Label Text="{Binding Source={x:Reference stepper}, Path=Value}" />
-        </HorizontalStackLayout>
-        
-        <Label Text="A value greater than 0" />
-        <Slider x:Name="slider" Margin="0, 0, 0, 20" />
-
-        <Button Text="Proceed">
-            <Button.IsEnabled>
-                <MultiBinding Converter="{StaticResource AllGreaterThanZeroConverter}">
-                    <Binding Source="{x:Reference entry}" Path="Text.Length" />
-                    <Binding Source="{x:Reference stepper}" Path="Value" />
-                    <Binding Source="{x:Reference slider}" Path="Value" />
-                </MultiBinding>
-            </Button.IsEnabled>
-        </Button>
+    <VerticalStackLayout WidthRequest="200">
+        <Label Text="What is your favorite color?" />
+        <Entry WidthRequest="100" Text="{Binding FavoriteColor}"/>
+        <Label Text="{Binding FavoriteColor}" />
+        <Label Text="{Binding LetterCount}" />
+        <Button 
+            Text="RED" 
+            Command="{Binding UseColorCommand}" 
+            CommandParameter="red" />
+        <Button 
+            Text="BLUE" 
+            Command="{Binding UseColorCommand}" 
+            CommandParameter="blue" />
+        <Button 
+            Text="YELLOW" 
+            Command="{Binding UseColorCommand}" 
+            CommandParameter="yellow" />
     </VerticalStackLayout>
 </ContentPage>
 
