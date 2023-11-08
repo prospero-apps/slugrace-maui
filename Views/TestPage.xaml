@@ -14,15 +14,15 @@
         <Label Text="{Binding LetterCount}" />
         <Button 
             Text="RED" 
-            Command="{Binding UseColorCommand}" 
+            Command="{Binding UseFixedColorCommand}" 
             CommandParameter="red" />
         <Button 
             Text="BLUE" 
-            Command="{Binding UseColorCommand}" 
+            Command="{Binding UseFixedColorCommand}" 
             CommandParameter="blue" />
         <Button 
             Text="YELLOW" 
-            Command="{Binding UseColorCommand}" 
+            Command="{Binding UseFixedColorCommand}" 
             CommandParameter="yellow" />
     </VerticalStackLayout>
 </ContentPage>

@@ -21,8 +21,8 @@ public static class MauiProgram
 		builder.Logging.AddDebug();
 #endif
 
-		builder.Services.AddTransient<TestPage>();
-		builder.Services.AddTransient<TestViewModel>();
+		builder.Services.AddSingleton<TestPage>();
+		builder.Services.AddSingleton<TestViewModel>();
 
 		return builder.Build();
 	}
