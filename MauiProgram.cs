@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using Slugrace.Views;
 using Slugrace.ViewModels;
+using CommunityToolkit.Maui;
 
 namespace Slugrace;
 
@@ -11,6 +12,7 @@ public static class MauiProgram
 		var builder = MauiApp.CreateBuilder();
 		builder
 			.UseMauiApp<App>()
+			.UseMauiCommunityToolkit()
 			.ConfigureFonts(fonts =>
 			{
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
@@ -20,10 +22,14 @@ public static class MauiProgram
 #if DEBUG
 		builder.Logging.AddDebug();
 #endif
+		builder.Services.AddSingleton<GameManager>();
 
 		builder.Services.AddSingleton<TestPage>();
 		builder.Services.AddSingleton<TestViewModel>();
 
-		return builder.Build();
+		builder.Services.AddSingleton<SettingsPage>();
+		builder.Services.AddSingleton<SettingsViewModel>();
+
+        return builder.Build();
 	}
 }

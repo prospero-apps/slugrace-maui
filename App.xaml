@@ -133,7 +133,7 @@
                         <VisualStateGroup x:Name="ValidityStates">
                             <VisualState x:Name="Valid">
                                 <VisualState.Setters>
-                                    <Setter Property="BackgroundColor" Value="{StaticResource normalEntryColor}" />
+                                    <Setter Property="BackgroundColor" Value="{StaticResource normalEntryColor}" />                                    
                                     <Setter Property="TextColor" Value="Black" />
                                 </VisualState.Setters>
                             </VisualState>
@@ -170,7 +170,7 @@
                         HeightRequest="28"
                         HorizontalOptions="{StaticResource defaultLayoutOptions}"
                         VerticalOptions="{StaticResource defaultLayoutOptions}">                        
-                        <Ellipse
+                        <Ellipse 
                                 Fill="{OnPlatform {StaticResource mainButtonColor}, 
                                     Android=White}" 
                                 Stroke="{StaticResource mainButtonColor}"
@@ -178,7 +178,7 @@
                                 WidthRequest="{OnPlatform 24, Android=20}"
                                 HorizontalOptions="{StaticResource defaultLayoutOptions}"
                                 VerticalOptions="{StaticResource defaultLayoutOptions}" />                        
-                        <Ellipse
+                        <Ellipse 
                                 x:Name="check" 
                                 Fill="{OnPlatform {StaticResource buttonTextColor}, 
                                     Android={StaticResource mainButtonColor}}"
@@ -208,8 +208,8 @@
                 </FlexLayout>
             </ControlTemplate>
             <Style TargetType="RadioButton">
-                <Setter Property="ControlTemplate" Value="{StaticResource RadioButtonTemplate}" />  
-            </Style>            
+                <Setter Property="ControlTemplate" Value="{StaticResource RadioButtonTemplate}" />                
+            </Style>                       
 
         </ResourceDictionary>
     </Application.Resources>

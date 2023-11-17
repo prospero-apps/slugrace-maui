@@ -8,6 +8,6 @@
 
     <ShellContent
         Title=""
-        ContentTemplate="{DataTemplate views:TestPage}"
+        ContentTemplate="{DataTemplate views:SettingsPage}"
         Route="SettingsPage" />
 </Shell>

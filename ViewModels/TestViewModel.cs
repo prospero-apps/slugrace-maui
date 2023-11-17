@@ -6,7 +6,7 @@ namespace Slugrace.ViewModels;
 public partial class TestViewModel : ObservableObject
 {
     [ObservableProperty]
-    [NotifyPropertyChangedFor(nameof(LetterCount))]
+    [NotifyPropertyChangedFor(nameof(LetterCount))]    
     string favoriteColor;       
 
     public int? LetterCount => FavoriteColor?.Length;    
