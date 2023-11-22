@@ -5,7 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:views="clr-namespace:Slugrace.Views"
     Shell.FlyoutBehavior="Disabled">
-
+    
     <ShellContent
         Title=""
         ContentTemplate="{DataTemplate views:SettingsPage}"

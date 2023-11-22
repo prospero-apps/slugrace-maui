@@ -36,7 +36,7 @@ internal class ZeroToEmptyStringConverter : IValueConverter
             }
             else
             {
-                enteredValue = enteredValue.Substring(0, enteredValue.Length - 1);
+                enteredValue = enteredValue[..^1];
                 return enteredValue.Length == 0 ? 0 : int.Parse(enteredValue);
             }            
         }

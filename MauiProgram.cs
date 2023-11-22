@@ -2,6 +2,7 @@
 using Slugrace.Views;
 using Slugrace.ViewModels;
 using CommunityToolkit.Maui;
+using Slugrace.Controls;
 
 namespace Slugrace;
 
@@ -24,11 +25,17 @@ public static class MauiProgram
 #endif
 		builder.Services.AddSingleton<GameManager>();
 
-		builder.Services.AddSingleton<TestPage>();
-		builder.Services.AddSingleton<TestViewModel>();
+		builder.Services.AddTransient<TestPage>();
+		builder.Services.AddTransient<TestViewModel>();
 
-		builder.Services.AddSingleton<SettingsPage>();
-		builder.Services.AddSingleton<SettingsViewModel>();
+		builder.Services.AddTransient<SettingsPage>();
+		builder.Services.AddTransient<SettingsViewModel>();
+
+        builder.Services.AddTransient<RacePage>();
+        builder.Services.AddTransient<RaceViewModel>();
+
+        builder.Services.AddTransient<GameOverPage>();
+        builder.Services.AddTransient<GameOverViewModel>();		       
 
         return builder.Build();
 	}

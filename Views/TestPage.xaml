@@ -6,24 +6,21 @@
              x:Class="Slugrace.Views.TestPage"  
              Title="TestPage"
              Padding="50">
-    
-    <VerticalStackLayout WidthRequest="200">
-        <Label Text="What is your favorite color?" />
-        <Entry WidthRequest="100" Text="{Binding FavoriteColor}"/>
-        <Label Text="{Binding FavoriteColor}" />
-        <Label Text="{Binding LetterCount}" />
+
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IsEnabled="False" IsVisible="False" />
+    </Shell.BackButtonBehavior>
+
+    <VerticalStackLayout WidthRequest="600">
+        <Label Text="Test Page"
+               FontSize="40" />
+        <Label Text="{Binding Team.Count, StringFormat='team size: {0} players'}"
+               FontSize="30" />
+        <Label Text="{Binding Team[0].PlayerInitialMoney, StringFormat='The captain has ${0}.'}"
+               FontSize="20" />
         <Button 
-            Text="RED" 
-            Command="{Binding UseFixedColorCommand}" 
-            CommandParameter="red" />
-        <Button 
-            Text="BLUE" 
-            Command="{Binding UseFixedColorCommand}" 
-            CommandParameter="blue" />
-        <Button 
-            Text="YELLOW" 
-            Command="{Binding UseFixedColorCommand}" 
-            CommandParameter="yellow" />
+            Text="Back to settings"
+            Command="{Binding NavigateBackCommand}" />
     </VerticalStackLayout>
 </ContentPage>
 

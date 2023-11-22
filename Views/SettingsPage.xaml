@@ -15,6 +15,382 @@
         <converters:ZeroToEmptyStringConverter x:Key="zeroToEmptyConverter" />
         <toolkit:InvertedBoolConverter x:Key="invertedBoolConverter" />
     </ContentPage.Resources>
+
+    <Grid                
+        Margin="{OnPlatform 10, Android=2}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="{OnPlatform 40, Android=30}" />
+            <RowDefinition Height="2.5*" />
+            <RowDefinition Height="1.5*" />
+            <RowDefinition Height="50" />
+        </Grid.RowDefinitions>
+
+        
+        <!--the Settings label-->
+
+        <Label 
+            Text="Settings"
+            FontAttributes="{StaticResource emphasized}"
+            FontSize="{OnPlatform 24, Android=20}" />
+
+        
+        <!--the Players panel-->
+
+        <Border
+            Grid.Row="1">
+
+            <Grid>
+                <Image 
+                    Source="all_slugs.png"                    
+                    Aspect="{OnPlatform Fill, Android=AspectFill}"                    
+                    Opacity=".5"/>
+
+                <VerticalStackLayout>
+                    <Label                        
+                        Style="{StaticResource labelSectionTitleStyle}">
+                        <Label.Text>
+                            <OnPlatform x:TypeArguments="x:String">
+                                <On Platform="WinUI" Value="The Players" />
+                                <On Platform="Android" Value="How many players?" />
+                            </OnPlatform>
+                        </Label.Text>
+                    </Label>
+
+                    <HorizontalStackLayout>
+                        <RadioButton                             
+                            GroupName="players">
+                            <RadioButton.Content>
+                                <Label>
+                                    <Label.Text>
+                                        <OnPlatform x:TypeArguments="x:String">
+                                            <On Platform="WinUI" Value="1 player" />
+                                            <On Platform="Android" Value="1" />
+                                        </OnPlatform>
+                                    </Label.Text>
+                                </Label>
+                            </RadioButton.Content>
+                            <RadioButton.Behaviors>
+                                <toolkit:EventToCommandBehavior
+                                    EventName="CheckedChanged" 
+                                    Command="{Binding CreatePlayerListCommand}">
+                                    <toolkit:EventToCommandBehavior.CommandParameter>
+                                        <x:Int32>1</x:Int32>
+                                    </toolkit:EventToCommandBehavior.CommandParameter>
+                                </toolkit:EventToCommandBehavior>
+                            </RadioButton.Behaviors>
+                        </RadioButton>
+
+                        <RadioButton 
+                            x:Name="players2" 
+                            IsChecked="True"
+                            GroupName="players">
+                            <RadioButton.Content>
+                                <Label>
+                                    <Label.Text>
+                                        <OnPlatform x:TypeArguments="x:String">
+                                            <On Platform="WinUI" Value="2 players" />
+                                            <On Platform="Android" Value="2" />
+                                        </OnPlatform>
+                                    </Label.Text>
+                                </Label>
+                            </RadioButton.Content>
+                            <RadioButton.Behaviors>
+                                <toolkit:EventToCommandBehavior
+                                    EventName="CheckedChanged"
+                                    Command="{Binding CreatePlayerListCommand}">
+                                    <toolkit:EventToCommandBehavior.CommandParameter>
+                                        <x:Int32>2</x:Int32>
+                                    </toolkit:EventToCommandBehavior.CommandParameter>
+                                </toolkit:EventToCommandBehavior>
+                            </RadioButton.Behaviors>
+                        </RadioButton>
+
+                        <RadioButton 
+                            x:Name="players3"
+                            GroupName="players">
+                            <RadioButton.Content>
+                                <Label>
+                                    <Label.Text>
+                                        <OnPlatform x:TypeArguments="x:String">
+                                            <On Platform="WinUI" Value="3 players" />
+                                            <On Platform="Android" Value="3" />
+                                        </OnPlatform>
+                                    </Label.Text>
+                                </Label>
+                            </RadioButton.Content>
+                            <RadioButton.Behaviors>
+                                <toolkit:EventToCommandBehavior
+                                    EventName="CheckedChanged"
+                                    Command="{Binding CreatePlayerListCommand}">
+                                    <toolkit:EventToCommandBehavior.CommandParameter>
+                                        <x:Int32>3</x:Int32>
+                                    </toolkit:EventToCommandBehavior.CommandParameter>
+                                </toolkit:EventToCommandBehavior>
+                            </RadioButton.Behaviors>
+                        </RadioButton>
+
+                        <RadioButton 
+                            x:Name="players4"                              
+                            GroupName="players">
+                            <RadioButton.Content>
+                                <Label>
+                                    <Label.Text>
+                                        <OnPlatform x:TypeArguments="x:String">
+                                            <On Platform="WinUI" Value="4 players" />
+                                            <On Platform="Android" Value="4" />
+                                        </OnPlatform>
+                                    </Label.Text>
+                                </Label>
+                            </RadioButton.Content>
+                            <RadioButton.Behaviors>
+                                <toolkit:EventToCommandBehavior
+                                    EventName="CheckedChanged"
+                                    Command="{Binding CreatePlayerListCommand}">
+                                    <toolkit:EventToCommandBehavior.CommandParameter>
+                                        <x:Int32>4</x:Int32>
+                                    </toolkit:EventToCommandBehavior.CommandParameter>
+                                </toolkit:EventToCommandBehavior>
+                            </RadioButton.Behaviors>
+                        </RadioButton>
+                    </HorizontalStackLayout>
+
+                    <Grid
+                        RowDefinitions="*"
+                        ColumnDefinitions="150, 3*, 2*">
+
+                        <Label
+                            Grid.Column="1" 
+                            Style="{StaticResource labelBaseStyle}">
+                            <Label.Text>
+                                <OnPlatform x:TypeArguments="x:String">
+                                    <On Platform="WinUI" Value="Name (max 10 characters)" />
+                                    <On Platform="Android" Value="Name" />
+                                </OnPlatform>
+                            </Label.Text>
+                        </Label>
+
+                        <Label
+                            Grid.Column="2" 
+                            Style="{StaticResource labelBaseStyle}">
+                            <Label.Text>
+                                <OnPlatform x:TypeArguments="x:String">
+                                    <On Platform="WinUI" Value="Initial Money ($10 - $5000)" />
+                                    <On Platform="Android" Value="Money" />
+                                </OnPlatform>
+                            </Label.Text>
+                        </Label>
+                    </Grid>
+
+                    <VerticalStackLayout>
+                        <controls:PlayerSettings>
+                            <controls:PlayerSettings.BindingContext>
+                                <Binding Path="Players[0]" />
+                            </controls:PlayerSettings.BindingContext>
+                        </controls:PlayerSettings>
+
+                        <controls:PlayerSettings>
+                            <controls:PlayerSettings.BindingContext>
+                                <Binding Path="Players[1]" />
+                            </controls:PlayerSettings.BindingContext>
+                        </controls:PlayerSettings>
+
+                        <controls:PlayerSettings>
+                            <controls:PlayerSettings.BindingContext>
+                                <Binding Path="Players[2]" />
+                            </controls:PlayerSettings.BindingContext>
+                        </controls:PlayerSettings>
+
+                        <controls:PlayerSettings>
+                            <controls:PlayerSettings.BindingContext>
+                                <Binding Path="Players[3]" />
+                            </controls:PlayerSettings.BindingContext>
+                        </controls:PlayerSettings>
+                    </VerticalStackLayout>
+
+                </VerticalStackLayout>
+            </Grid>
+        </Border>
+
+        
+        <!--the Ending Conditions panel-->
+
+        <Border
+            Grid.Row="2">
+            <VerticalStackLayout VerticalOptions="{StaticResource defaultLayoutOptions}">
+                <Label
+                    Text="Ending Conditions"
+                    Style="{StaticResource labelSectionTitleStyle}" 
+                    Margin="0, 0, 0, 10"/>
+
+                <Grid
+                    RowDefinitions="*, *, *"
+                    ColumnDefinitions="4*, 2*">
+                    <RadioButton 
+                        IsChecked="True"
+                        IsVisible="{Binding OnlyOnePlayer, Converter={StaticResource invertedBoolConverter}}"
+                        GroupName="endingConditions">
+                        <RadioButton.Content>
+                            <Label>
+                                <Label.Text>
+                                    <OnPlatform x:TypeArguments="x:String">
+                                        <On Platform="WinUI" Value="The game is over when there is only one player with any money left." />
+                                        <On Platform="Android" Value="last player left" />
+                                    </OnPlatform>
+                                </Label.Text>
+                            </Label>
+                        </RadioButton.Content>
+                        <RadioButton.Behaviors>
+                            <toolkit:EventToCommandBehavior
+                                    EventName="CheckedChanged"
+                                    Command="{Binding SetEndingConditionCommand}"
+                                    CommandParameter="money">
+                            </toolkit:EventToCommandBehavior>
+                        </RadioButton.Behaviors>
+                    </RadioButton>
+
+                    <RadioButton
+                        Grid.Row="1"
+                        IsChecked="{Binding RacesEndingConditionSet}"
+                        GroupName="endingConditions">
+                        <RadioButton.Content>
+                            <Label>
+                                <Label.Text>
+                                    <OnPlatform x:TypeArguments="x:String">
+                                        <On Platform="WinUI" Value="The game is over not later than after a given number of races." />
+                                        <On Platform="Android" Value="number of races" />
+                                    </OnPlatform>
+                                </Label.Text>
+                            </Label>
+                        </RadioButton.Content>
+                        <RadioButton.Behaviors>
+                            <toolkit:EventToCommandBehavior
+                                    EventName="CheckedChanged"
+                                    Command="{Binding SetEndingConditionCommand}"
+                                    CommandParameter="races">
+                            </toolkit:EventToCommandBehavior>
+                        </RadioButton.Behaviors>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Unchecked" />
+                                <VisualState x:Name="Checked">
+                                    <VisualState.Setters>
+                                        <Setter TargetName="maxRacesEntry" Property="Opacity" Value="1" />
+                                        <Setter TargetName="maxRacesEntry" Property="IsEnabled" Value="True" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                    </RadioButton>
+
+                    <Entry
+                        x:Name="maxRacesEntry"
+                        Grid.Row="1"
+                        Grid.Column="1" 
+                        WidthRequest="{OnPlatform {StaticResource entryWidth}, Android=100}"
+                        HorizontalOptions="Start"                         
+                        Opacity="{StaticResource invisible}"
+                        IsEnabled="False"   
+                        Text="{Binding NumberOfRacesSet, Converter={StaticResource zeroToEmptyConverter}}"
+                        TextChanged="OnMaxRacesTextChanged">
+                        <Entry.Placeholder>
+                            <OnPlatform x:TypeArguments="x:String">
+                                <On Platform="WinUI" Value="Set max number of races (1-100)" />
+                                <On Platform="Android" Value="1-100 races" />
+                            </OnPlatform>
+                        </Entry.Placeholder>
+                        <Entry.Behaviors>
+                            <behaviors:NumericInputBehavior />
+                        </Entry.Behaviors>
+                    </Entry>
+
+                    <RadioButton
+                        Grid.Row="2"
+                        GroupName="endingConditions">
+                        <RadioButton.Content>
+                            <Label>
+                                <Label.Text>
+                                    <OnPlatform x:TypeArguments="x:String">
+                                        <On Platform="WinUI" Value="The game is over not later than after the racing time you set has elapsed." />
+                                        <On Platform="Android" Value="specified time" />
+                                    </OnPlatform>
+                                </Label.Text>
+                            </Label>
+                        </RadioButton.Content>
+                        <RadioButton.Behaviors>
+                            <toolkit:EventToCommandBehavior
+                                EventName="CheckedChanged"
+                                Command="{Binding SetEndingConditionCommand}"
+                                CommandParameter="time">
+                            </toolkit:EventToCommandBehavior>
+                        </RadioButton.Behaviors>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Unchecked" />
+                                <VisualState x:Name="Checked">
+                                    <VisualState.Setters>
+                                        <Setter TargetName="maxTimeEntry" Property="Opacity" Value="1" />
+                                        <Setter TargetName="maxTimeEntry" Property="IsEnabled" Value="True" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                    </RadioButton>
+
+                    <Entry
+                        x:Name="maxTimeEntry"
+                        Grid.Row="2"
+                        Grid.Column="1" 
+                        WidthRequest="{OnPlatform {StaticResource entryWidth}, Android=100}" 
+                        HorizontalOptions="Start" 
+                        Opacity="{StaticResource invisible}"
+                        IsEnabled="False"
+                        Text="{Binding GameTimeSet, Converter={StaticResource zeroToEmptyConverter}}"
+                        TextChanged="OnMaxTimeTextChanged">
+                        <Entry.Placeholder>
+                            <OnPlatform x:TypeArguments="x:String">
+                                <On Platform="WinUI" Value="Set max game time (1-120 min)" />
+                                <On Platform="Android" Value="1-120 min" />
+                            </OnPlatform>
+                        </Entry.Placeholder>
+                        <Entry.Behaviors>
+                            <behaviors:NumericInputBehavior />
+                        </Entry.Behaviors>
+                    </Entry>
+                </Grid>
+            </VerticalStackLayout>
+        </Border>
+
+        
+        <!--the Ready button-->
+
+        <Button 
+            Grid.Row="3" 
+            Text="Ready"
+            IsEnabled="{Binding AllSettingsAreValid}"
+            Command="{Binding StartGameCommand}">
+        </Button>
+    </Grid>
+</ContentPage>
+
+
+
+<!--<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:controls="clr-namespace:Slugrace.Controls"
+             xmlns:viewmodels="clr-namespace:Slugrace.ViewModels"
+             xmlns:behaviors="clr-namespace:Slugrace.Behaviors"
+             xmlns:converters="clr-namespace:Slugrace.Converters"
+             x:DataType="viewmodels:SettingsViewModel"
+             x:Class="Slugrace.Views.SettingsPage">    
+
+    <ContentPage.Resources>
+        <x:Double x:Key="entryWidth">300</x:Double>
+        <x:Double x:Key="invisible">0</x:Double>
+        <converters:ZeroToEmptyStringConverter x:Key="zeroToEmptyConverter" />
+        <toolkit:InvertedBoolConverter x:Key="invertedBoolConverter" />
+    </ContentPage.Resources>
     
     <Grid                
         Margin="{OnPlatform 10, Android=2}">
@@ -25,13 +401,13 @@
             <RowDefinition Height="50" />
         </Grid.RowDefinitions>
 
-        <!--the Settings label-->
+        --><!--the Settings label--><!--
         <Label 
             Text="Settings"
             FontAttributes="{StaticResource emphasized}"
             FontSize="{OnPlatform 24, Android=20}" />
 
-        <!--the Players panel-->
+        --><!--the Players panel--><!--
         <Border
             Grid.Row="1">
 
@@ -178,36 +554,85 @@
                     </Grid>                
 
                     <VerticalStackLayout>
-                        <controls:PlayerSettings>
+                        --><!--<controls:PlayerSettings>
                             <controls:PlayerSettings.BindingContext>
                                 <Binding Path="Players[0]" />
                             </controls:PlayerSettings.BindingContext>
-                        </controls:PlayerSettings>
-                        
-                        <controls:PlayerSettings>
+                        </controls:PlayerSettings>--><!--
+
+                        <controls:PlayerSettings
+                            PlayerId="{Binding Players[0].PlayerId}"
+                            PlayerName="{Binding Players[0].PlayerName}"
+                            PlayerInitialMoney="{Binding Players[0].PlayerInitialMoney}"
+                            PlayerIsInGame="{Binding Players[0].PlayerIsInGame}" />
+                        --><!--<controls:PlayerSettings
+                            PlayerId="{Binding Players[0].Id}"
+                            PlayerName="{Binding Players[0].Name}"
+                            PlayerInitialMoney="{Binding Players[0].InitialMoney}"
+                            PlayerIsInGame="{Binding Players[0].IsInGame}" />-->
+
+                       
+
+                        <!--<controls:PlayerSettings>
                             <controls:PlayerSettings.BindingContext>
                                 <Binding Path="Players[1]" />
                             </controls:PlayerSettings.BindingContext>
-                        </controls:PlayerSettings>
-                        
-                        <controls:PlayerSettings>
+                        </controls:PlayerSettings>--><!--
+
+                        <controls:PlayerSettings
+                            PlayerId="{Binding Players[1].PlayerId}"
+                            PlayerName="{Binding Players[1].PlayerName}"
+                            PlayerInitialMoney="{Binding Players[1].PlayerInitialMoney}"
+                            PlayerIsInGame="{Binding Players[1].PlayerIsInGame}" />
+                        --><!--<controls:PlayerSettings
+                            PlayerId="{Binding Players[1].Id}"
+                            PlayerName="{Binding Players[1].Name}"
+                            PlayerInitialMoney="{Binding Players[1].InitialMoney}"
+                            PlayerIsInGame="{Binding Players[1].IsInGame}" />-->
+
+                        <!--<controls:PlayerSettings>
                             <controls:PlayerSettings.BindingContext>
                                 <Binding Path="Players[2]" />
                             </controls:PlayerSettings.BindingContext>
-                        </controls:PlayerSettings>
-                        
-                        <controls:PlayerSettings>
+                        </controls:PlayerSettings>--><!--
+
+                        <controls:PlayerSettings
+                            PlayerId="{Binding Players[2].PlayerId}"
+                            PlayerName="{Binding Players[2].PlayerName}"
+                            PlayerInitialMoney="{Binding Players[2].PlayerInitialMoney}"
+                            PlayerIsInGame="{Binding Players[2].PlayerIsInGame}" />
+
+                        --><!--<controls:PlayerSettings
+                            PlayerId="{Binding Players[2].Id}"
+                            PlayerName="{Binding Players[2].Name}"
+                            PlayerInitialMoney="{Binding Players[2].InitialMoney}"
+                            PlayerIsInGame="{Binding Players[2].IsInGame}" />-->
+
+                        <!--<controls:PlayerSettings>
                             <controls:PlayerSettings.BindingContext>
                                 <Binding Path="Players[3]" />
                             </controls:PlayerSettings.BindingContext>
-                        </controls:PlayerSettings>
+                        </controls:PlayerSettings>--><!--
+
+                        <controls:PlayerSettings
+                            PlayerId="{Binding Players[3].PlayerId}"
+                            PlayerName="{Binding Players[3].PlayerName}"
+                            PlayerInitialMoney="{Binding Players[3].PlayerInitialMoney}"
+                            PlayerIsInGame="{Binding Players[3].PlayerIsInGame}" />
+
+                        --><!--<controls:PlayerSettings
+                            PlayerId="{Binding Players[3].Id}"
+                            PlayerName="{Binding Players[3].Name}"
+                            PlayerInitialMoney="{Binding Players[3].InitialMoney}"
+                            PlayerIsInGame="{Binding Players[3].IsInGame}" />--><!--
+
                     </VerticalStackLayout>                                       
                     
                 </VerticalStackLayout>
             </Grid>
         </Border>
         
-        <!--the Ending Conditions panel-->
+        --><!--the Ending Conditions panel--><!--
         <Border
             Grid.Row="2">
             <VerticalStackLayout VerticalOptions="{StaticResource defaultLayoutOptions}">
@@ -354,11 +779,381 @@
             </VerticalStackLayout>
         </Border>
         
-        <!--the Ready button-->
+        --><!--the Ready button--><!--
         <Button 
             Grid.Row="3" 
             Text="Ready"
-            IsEnabled="{Binding AllSettingsAreValid}">            
+            IsEnabled="{Binding AllSettingsAreValid}"
+            Command="{Binding StartGameCommand}">           
         </Button>
     </Grid>
-</ContentPage>
+</ContentPage>-->
+
+
+
+<!--<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:controls="clr-namespace:Slugrace.Controls"
+             xmlns:viewmodels="clr-namespace:Slugrace.ViewModels"
+             xmlns:behaviors="clr-namespace:Slugrace.Behaviors"
+             xmlns:converters="clr-namespace:Slugrace.Converters"
+             x:DataType="viewmodels:SettingsViewModel"
+             x:Class="Slugrace.Views.SettingsPage">
+
+    <ContentPage.Resources>
+        <x:Double x:Key="entryWidth">300</x:Double>
+        <x:Double x:Key="invisible">0</x:Double>
+        <converters:ZeroToEmptyStringConverter x:Key="zeroToEmptyConverter" />
+        <toolkit:InvertedBoolConverter x:Key="invertedBoolConverter" />
+    </ContentPage.Resources>
+
+    <Grid                
+        Margin="{OnPlatform 10, Android=2}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="{OnPlatform 40, Android=30}" />
+            <RowDefinition Height="2.5*" />
+            <RowDefinition Height="1.5*" />
+            <RowDefinition Height="50" />
+        </Grid.RowDefinitions>
+
+        --><!--the Settings label--><!--
+        <Label 
+            Text="Settings"
+            FontAttributes="{StaticResource emphasized}"
+            FontSize="{OnPlatform 24, Android=20}" />
+
+        --><!--the Players panel--><!--
+        <Border
+            Grid.Row="1">
+
+            <Grid>
+                <Image 
+                    Source="all_slugs.png"                    
+                    Aspect="{OnPlatform Fill, Android=AspectFill}"                    
+                    Opacity=".5"/>
+
+                <VerticalStackLayout>
+                    <Label                        
+                        Style="{StaticResource labelSectionTitleStyle}">
+                        <Label.Text>
+                            <OnPlatform x:TypeArguments="x:String">
+                                <On Platform="WinUI" Value="The Players" />
+                                <On Platform="Android" Value="How many players?" />
+                            </OnPlatform>
+                        </Label.Text>
+                    </Label>
+
+                    <HorizontalStackLayout>
+                        <RadioButton                             
+                            GroupName="players">
+                            <RadioButton.Content>
+                                <Label>
+                                    <Label.Text>
+                                        <OnPlatform x:TypeArguments="x:String">
+                                            <On Platform="WinUI" Value="1 player" />
+                                            <On Platform="Android" Value="1" />
+                                        </OnPlatform>
+                                    </Label.Text>
+                                </Label>
+                            </RadioButton.Content>
+                            <RadioButton.Behaviors>
+                                <toolkit:EventToCommandBehavior
+                                    EventName="CheckedChanged" 
+                                    Command="{Binding CreatePlayerListCommand}">
+                                    <toolkit:EventToCommandBehavior.CommandParameter>
+                                        <x:Int32>1</x:Int32>
+                                    </toolkit:EventToCommandBehavior.CommandParameter>
+                                </toolkit:EventToCommandBehavior>
+                            </RadioButton.Behaviors>
+                        </RadioButton>
+
+                        <RadioButton 
+                            x:Name="players2" 
+                            IsChecked="True"
+                            GroupName="players">
+                            <RadioButton.Content>
+                                <Label>
+                                    <Label.Text>
+                                        <OnPlatform x:TypeArguments="x:String">
+                                            <On Platform="WinUI" Value="2 players" />
+                                            <On Platform="Android" Value="2" />
+                                        </OnPlatform>
+                                    </Label.Text>
+                                </Label>
+                            </RadioButton.Content>
+                            <RadioButton.Behaviors>
+                                <toolkit:EventToCommandBehavior
+                                    EventName="CheckedChanged"
+                                    Command="{Binding CreatePlayerListCommand}">
+                                    <toolkit:EventToCommandBehavior.CommandParameter>
+                                        <x:Int32>2</x:Int32>
+                                    </toolkit:EventToCommandBehavior.CommandParameter>
+                                </toolkit:EventToCommandBehavior>
+                            </RadioButton.Behaviors>
+                        </RadioButton>
+
+                        <RadioButton 
+                            x:Name="players3"
+                            GroupName="players">
+                            <RadioButton.Content>
+                                <Label>
+                                    <Label.Text>
+                                        <OnPlatform x:TypeArguments="x:String">
+                                            <On Platform="WinUI" Value="3 players" />
+                                            <On Platform="Android" Value="3" />
+                                        </OnPlatform>
+                                    </Label.Text>
+                                </Label>
+                            </RadioButton.Content>
+                            <RadioButton.Behaviors>
+                                <toolkit:EventToCommandBehavior
+                                    EventName="CheckedChanged"
+                                    Command="{Binding CreatePlayerListCommand}">
+                                    <toolkit:EventToCommandBehavior.CommandParameter>
+                                        <x:Int32>3</x:Int32>
+                                    </toolkit:EventToCommandBehavior.CommandParameter>
+                                </toolkit:EventToCommandBehavior>
+                            </RadioButton.Behaviors>
+                        </RadioButton>
+
+                        <RadioButton 
+                            x:Name="players4"                              
+                            GroupName="players">
+                            <RadioButton.Content>
+                                <Label>
+                                    <Label.Text>
+                                        <OnPlatform x:TypeArguments="x:String">
+                                            <On Platform="WinUI" Value="4 players" />
+                                            <On Platform="Android" Value="4" />
+                                        </OnPlatform>
+                                    </Label.Text>
+                                </Label>
+                            </RadioButton.Content>
+                            <RadioButton.Behaviors>
+                                <toolkit:EventToCommandBehavior
+                                    EventName="CheckedChanged"
+                                    Command="{Binding CreatePlayerListCommand}">
+                                    <toolkit:EventToCommandBehavior.CommandParameter>
+                                        <x:Int32>4</x:Int32>
+                                    </toolkit:EventToCommandBehavior.CommandParameter>
+                                </toolkit:EventToCommandBehavior>
+                            </RadioButton.Behaviors>
+                        </RadioButton>
+                    </HorizontalStackLayout>
+
+                    <Grid
+                        RowDefinitions="*"
+                        ColumnDefinitions="150, 3*, 2*">
+
+                        <Label
+                            Grid.Column="1" 
+                            Style="{StaticResource labelBaseStyle}">
+                            <Label.Text>
+                                <OnPlatform x:TypeArguments="x:String">
+                                    <On Platform="WinUI" Value="Name (max 10 characters)" />
+                                    <On Platform="Android" Value="Name" />
+                                </OnPlatform>
+                            </Label.Text>
+                        </Label>
+
+                        <Label
+                            Grid.Column="2" 
+                            Style="{StaticResource labelBaseStyle}">
+                            <Label.Text>
+                                <OnPlatform x:TypeArguments="x:String">
+                                    <On Platform="WinUI" Value="Initial Money ($10 - $5000)" />
+                                    <On Platform="Android" Value="Money" />
+                                </OnPlatform>
+                            </Label.Text>
+                        </Label>
+                    </Grid>
+
+                    <VerticalStackLayout>
+                        <controls:PlayerSettings>
+                            <controls:PlayerSettings.BindingContext>
+                                <Binding Path="Players[0]" />
+                            </controls:PlayerSettings.BindingContext>
+                        </controls:PlayerSettings>
+
+                        <controls:PlayerSettings>
+                            <controls:PlayerSettings.BindingContext>
+                                <Binding Path="Players[1]" />
+                            </controls:PlayerSettings.BindingContext>
+                        </controls:PlayerSettings>
+
+                        <controls:PlayerSettings>
+                            <controls:PlayerSettings.BindingContext>
+                                <Binding Path="Players[2]" />
+                            </controls:PlayerSettings.BindingContext>
+                        </controls:PlayerSettings>
+
+                        <controls:PlayerSettings>
+                            <controls:PlayerSettings.BindingContext>
+                                <Binding Path="Players[3]" />
+                            </controls:PlayerSettings.BindingContext>
+                        </controls:PlayerSettings>
+                    </VerticalStackLayout>
+
+                </VerticalStackLayout>
+            </Grid>
+        </Border>
+
+        --><!--the Ending Conditions panel--><!--
+        <Border
+            Grid.Row="2">
+            <VerticalStackLayout VerticalOptions="{StaticResource defaultLayoutOptions}">
+                <Label
+                    Text="Ending Conditions"
+                    Style="{StaticResource labelSectionTitleStyle}" 
+                    Margin="0, 0, 0, 10"/>
+
+                <Grid
+                    RowDefinitions="*, *, *"
+                    ColumnDefinitions="4*, 2*">
+                    <RadioButton 
+                        IsChecked="True"
+                        IsVisible="{Binding OnlyOnePlayer, Converter={StaticResource invertedBoolConverter}}"
+                        GroupName="endingConditions">
+                        <RadioButton.Content>
+                            <Label>
+                                <Label.Text>
+                                    <OnPlatform x:TypeArguments="x:String">
+                                        <On Platform="WinUI" Value="The game is over when there is only one player with any money left." />
+                                        <On Platform="Android" Value="last player left" />
+                                    </OnPlatform>
+                                </Label.Text>
+                            </Label>
+                        </RadioButton.Content>
+                        <RadioButton.Behaviors>
+                            <toolkit:EventToCommandBehavior
+                                    EventName="CheckedChanged"
+                                    Command="{Binding SetEndingConditionCommand}"
+                                    CommandParameter="money">
+                            </toolkit:EventToCommandBehavior>
+                        </RadioButton.Behaviors>
+                    </RadioButton>
+
+                    <RadioButton
+                        Grid.Row="1"
+                        IsChecked="{Binding RacesEndingConditionSet}"
+                        GroupName="endingConditions">
+                        <RadioButton.Content>
+                            <Label>
+                                <Label.Text>
+                                    <OnPlatform x:TypeArguments="x:String">
+                                        <On Platform="WinUI" Value="The game is over not later than after a given number of races." />
+                                        <On Platform="Android" Value="number of races" />
+                                    </OnPlatform>
+                                </Label.Text>
+                            </Label>
+                        </RadioButton.Content>
+                        <RadioButton.Behaviors>
+                            <toolkit:EventToCommandBehavior
+                                    EventName="CheckedChanged"
+                                    Command="{Binding SetEndingConditionCommand}"
+                                    CommandParameter="races">
+                            </toolkit:EventToCommandBehavior>
+                        </RadioButton.Behaviors>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Unchecked" />
+                                <VisualState x:Name="Checked">
+                                    <VisualState.Setters>
+                                        <Setter TargetName="maxRacesEntry" Property="Opacity" Value="1" />
+                                        <Setter TargetName="maxRacesEntry" Property="IsEnabled" Value="True" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                    </RadioButton>
+
+                    <Entry
+                        x:Name="maxRacesEntry"
+                        Grid.Row="1"
+                        Grid.Column="1" 
+                        WidthRequest="{OnPlatform {StaticResource entryWidth}, Android=100}"
+                        HorizontalOptions="Start"                         
+                        Opacity="{StaticResource invisible}"
+                        IsEnabled="False"   
+                        Text="{Binding NumberOfRacesSet, Converter={StaticResource zeroToEmptyConverter}}"
+                        TextChanged="OnMaxRacesTextChanged">
+                        <Entry.Placeholder>
+                            <OnPlatform x:TypeArguments="x:String">
+                                <On Platform="WinUI" Value="Set max number of races (1-100)" />
+                                <On Platform="Android" Value="1-100 races" />
+                            </OnPlatform>
+                        </Entry.Placeholder>
+                        <Entry.Behaviors>
+                            <behaviors:NumericInputBehavior />
+                        </Entry.Behaviors>
+                    </Entry>
+
+                    <RadioButton
+                        Grid.Row="2"
+                        GroupName="endingConditions">
+                        <RadioButton.Content>
+                            <Label>
+                                <Label.Text>
+                                    <OnPlatform x:TypeArguments="x:String">
+                                        <On Platform="WinUI" Value="The game is over not later than after the racing time you set has elapsed." />
+                                        <On Platform="Android" Value="specified time" />
+                                    </OnPlatform>
+                                </Label.Text>
+                            </Label>
+                        </RadioButton.Content>
+                        <RadioButton.Behaviors>
+                            <toolkit:EventToCommandBehavior
+                                EventName="CheckedChanged"
+                                Command="{Binding SetEndingConditionCommand}"
+                                CommandParameter="time">
+                            </toolkit:EventToCommandBehavior>
+                        </RadioButton.Behaviors>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Unchecked" />
+                                <VisualState x:Name="Checked">
+                                    <VisualState.Setters>
+                                        <Setter TargetName="maxTimeEntry" Property="Opacity" Value="1" />
+                                        <Setter TargetName="maxTimeEntry" Property="IsEnabled" Value="True" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                    </RadioButton>
+
+                    <Entry
+                        x:Name="maxTimeEntry"
+                        Grid.Row="2"
+                        Grid.Column="1" 
+                        WidthRequest="{OnPlatform {StaticResource entryWidth}, Android=100}" 
+                        HorizontalOptions="Start" 
+                        Opacity="{StaticResource invisible}"
+                        IsEnabled="False"
+                        Text="{Binding GameTimeSet, Converter={StaticResource zeroToEmptyConverter}}"
+                        TextChanged="OnMaxTimeTextChanged">
+                        <Entry.Placeholder>
+                            <OnPlatform x:TypeArguments="x:String">
+                                <On Platform="WinUI" Value="Set max game time (1-120 min)" />
+                                <On Platform="Android" Value="1-120 min" />
+                            </OnPlatform>
+                        </Entry.Placeholder>
+                        <Entry.Behaviors>
+                            <behaviors:NumericInputBehavior />
+                        </Entry.Behaviors>
+                    </Entry>
+                </Grid>
+            </VerticalStackLayout>
+        </Border>
+
+        --><!--the Ready button--><!--
+        <Button 
+            Grid.Row="3" 
+            Text="Ready"
+            IsEnabled="{Binding AllSettingsAreValid}"
+            Command="{Binding StartGameCommand}">
+        </Button>
+    </Grid>
+</ContentPage>-->
+

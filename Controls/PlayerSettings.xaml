@@ -17,8 +17,84 @@
                BasedOn="{StaticResource labelBaseStyle}" />
         <converters:ZeroToEmptyStringConverter x:Key="zeroToEmptyConverter" />
     </ContentView.Resources>
-       
+
     <Grid
+        RowDefinitions="*"         
+        Margin="0, 10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="{OnPlatform 150, Android=80}" />
+            <ColumnDefinition Width="{OnPlatform 3*, Android=2.5*}" />
+            <ColumnDefinition Width="10" />
+            <ColumnDefinition Width="2*" />
+        </Grid.ColumnDefinitions>
+
+        <Label Text="{Binding PlayerId, StringFormat='Player {0}'}" />
+
+        <Entry 
+            x:Name="nameEntry"
+            Grid.Column="1"            
+            WidthRequest="{OnPlatform 300, Android=130}"
+            Text="{Binding PlayerName}"            
+            TextChanged="OnNameTextChanged">
+        </Entry>
+
+        <Label
+            Grid.Column="2"
+            Text="$" />
+
+        <Entry 
+            x:Name="initialMoneyEntry"                        
+            Placeholder="1000" 
+            Grid.Column="3" 
+            WidthRequest="{OnPlatform 250, Android=100}"
+            Keyboard="Numeric"
+            Text="{Binding PlayerInitialMoney, Converter={StaticResource zeroToEmptyConverter}}" 
+            TextChanged="OnInitialMoneyTextChanged">
+            <Entry.Behaviors>
+                <behaviors:NumericInputBehavior />
+            </Entry.Behaviors>
+        </Entry>
+    </Grid>
+</ContentView>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+<!--<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:behaviors="clr-namespace:Slugrace.Behaviors"
+             xmlns:converters="clr-namespace:Slugrace.Converters"
+             
+             x:Name="this"
+             
+             x:Class="Slugrace.Controls.PlayerSettings">
+
+    --><!--<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:behaviors="clr-namespace:Slugrace.Behaviors"
+             xmlns:converters="clr-namespace:Slugrace.Converters"
+             IsVisible="{Binding PlayerIsInGame}"
+             x:Name="this"
+             BindingContext="{x:Reference this}"
+             x:Class="Slugrace.Controls.PlayerSettings">--><!--   
+
+    <ContentView.Resources>
+        <Style TargetType="Label" 
+               BasedOn="{StaticResource labelBaseStyle}" />
+        <converters:ZeroToEmptyStringConverter x:Key="zeroToEmptyConverter" />
+    </ContentView.Resources>
+
+    <Grid IsVisible="{Binding PlayerIsInGame}"
+        BindingContext="{x:Reference this}"
         RowDefinitions="*"         
         Margin="0, 10">
         <Grid.ColumnDefinitions>
@@ -55,4 +131,71 @@
             </Entry.Behaviors>
         </Entry>      
     </Grid>
-</ContentView>
+</ContentView>-->
+
+
+
+    
+    
+    
+    
+    
+
+<!--<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:Slugrace.ViewModels"
+             xmlns:behaviors="clr-namespace:Slugrace.Behaviors"
+             xmlns:converters="clr-namespace:Slugrace.Converters"
+             x:DataType="viewmodels:PlayerSettingsViewModel" 
+             IsVisible="{Binding PlayerIsInGame}"
+             x:Class="Slugrace.Controls.PlayerSettings">
+
+    <ContentView.BindingContext>
+        <viewmodels:PlayerSettingsViewModel />
+    </ContentView.BindingContext>
+
+    <ContentView.Resources>
+        <Style TargetType="Label" 
+               BasedOn="{StaticResource labelBaseStyle}" />
+        <converters:ZeroToEmptyStringConverter x:Key="zeroToEmptyConverter" />
+    </ContentView.Resources>
+
+    <Grid
+        RowDefinitions="*"         
+        Margin="0, 10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="{OnPlatform 150, Android=80}" />
+            <ColumnDefinition Width="{OnPlatform 3*, Android=2.5*}" />
+            <ColumnDefinition Width="10" />
+            <ColumnDefinition Width="2*" />
+        </Grid.ColumnDefinitions>
+
+        <Label Text="{Binding PlayerId, StringFormat='Player {0}'}" />
+
+        <Entry 
+            x:Name="nameEntry"
+            Grid.Column="1"            
+            WidthRequest="{OnPlatform 300, Android=130}"
+            Text="{Binding PlayerName}"            
+            TextChanged="OnNameTextChanged">
+        </Entry>
+
+        <Label
+            Grid.Column="2"
+            Text="$" />
+
+        <Entry 
+            x:Name="initialMoneyEntry"                        
+            Placeholder="1000" 
+            Grid.Column="3" 
+            WidthRequest="{OnPlatform 250, Android=100}"
+            Keyboard="Numeric"
+            Text="{Binding PlayerInitialMoney, Converter={StaticResource zeroToEmptyConverter}}" 
+            TextChanged="OnInitialMoneyTextChanged">
+            <Entry.Behaviors>
+                <behaviors:NumericInputBehavior />
+            </Entry.Behaviors>
+        </Entry>
+    </Grid>
+</ContentView>-->
