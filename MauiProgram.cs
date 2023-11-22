@@ -22,13 +22,11 @@ public static class MauiProgram
 #if DEBUG
 		builder.Logging.AddDebug();
 #endif
-		builder.Services.AddSingleton<GameManager>();
+		builder.Services.AddTransient<TestPage>();
+		builder.Services.AddTransient<TestViewModel>();
 
-		builder.Services.AddSingleton<TestPage>();
-		builder.Services.AddSingleton<TestViewModel>();
-
-		builder.Services.AddSingleton<SettingsPage>();
-		builder.Services.AddSingleton<SettingsViewModel>();
+		builder.Services.AddTransient<SettingsPage>();
+		builder.Services.AddTransient<SettingsViewModel>();
 
         return builder.Build();
 	}

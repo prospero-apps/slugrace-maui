@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using Slugrace.Messages;
+using Slugrace.Models;
 using System.Collections.ObjectModel;
 
 namespace Slugrace.ViewModels;
@@ -13,20 +14,20 @@ public partial class SettingsViewModel : ObservableObject
     const int minTime = 1;
     const int maxTime = 120;
 
-    private GameManager gameManager;
+    private Game game;
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(AllSettingsAreValid))]
-    private ObservableCollection<PlayerSettingsViewModel> players;    
+    private ObservableCollection<PlayerSettingsViewModel> players;
 
     public EndingCondition GameEndingCondition
     {
-        get => gameManager.EndingCondition;
+        get => game.GameEndingCondition;
         set
         {
-            if (gameManager.EndingCondition != value)
+            if (game.GameEndingCondition != value)
             {
-                gameManager.EndingCondition = value;
+                game.GameEndingCondition = value;
                 OnPropertyChanged();
                 OnPropertyChanged(nameof(AllSettingsAreValid));
             }
@@ -35,12 +36,12 @@ public partial class SettingsViewModel : ObservableObject
 
     public int NumberOfRacesSet
     {
-        get => gameManager.NumberOfRacesSet;
+        get => game.NumberOfRacesSet;
         set
         {
-            if (gameManager.NumberOfRacesSet != value)
+            if (game.NumberOfRacesSet != value)
             {
-                gameManager.NumberOfRacesSet = value;
+                game.NumberOfRacesSet = value;
                 OnPropertyChanged();
                 OnPropertyChanged(nameof(AllSettingsAreValid));
             }
@@ -49,12 +50,12 @@ public partial class SettingsViewModel : ObservableObject
 
     public int GameTimeSet
     {
-        get => gameManager.GameTimeSet;
+        get => game.GameTimeSet;
         set
         {
-            if (gameManager.GameTimeSet != value)
+            if (game.GameTimeSet != value)
             {
-                gameManager.GameTimeSet = value;
+                game.GameTimeSet = value;
                 OnPropertyChanged();
                 OnPropertyChanged(nameof(AllSettingsAreValid));
             }
@@ -75,8 +76,8 @@ public partial class SettingsViewModel : ObservableObject
 
     public bool OnlyOnePlayer => CurrentNumberOfPlayers == 1;
 
-    public bool RacesEndingConditionSet 
-        => (CurrentNumberOfPlayers == 1 && GameEndingCondition != EndingCondition.Time) 
+    public bool RacesEndingConditionSet
+        => (CurrentNumberOfPlayers == 1 && GameEndingCondition != EndingCondition.Time)
         || GameEndingCondition == EndingCondition.Races;
 
     [ObservableProperty]
@@ -98,11 +99,11 @@ public partial class SettingsViewModel : ObservableObject
 
             return conditionPlayers && (conditionMoney || conditionRaces || conditionTime);
         }
-    }    
+    }
 
-    public SettingsViewModel(GameManager gameManager)
+    public SettingsViewModel()
     {
-        this.gameManager = gameManager;
+        game = new Game();
 
         Players = new ObservableCollection<PlayerSettingsViewModel>
         {
@@ -138,7 +139,7 @@ public partial class SettingsViewModel : ObservableObject
         }
 
         CurrentNumberOfPlayers = numberOfPlayers;
-                
+
         if (OnlyOnePlayer)
         {
             GameEndingCondition = EndingCondition.Races;
