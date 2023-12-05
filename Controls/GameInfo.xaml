@@ -2,11 +2,12 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewmodels="clr-namespace:Slugrace.ViewModels"
+             x:DataType="viewmodels:GameViewModel"
              x:Class="Slugrace.Controls.GameInfo">    
-    
+
     <Grid 
         RowDefinitions="*, *, *, *, *"
-        ColumnDefinitions="3*, *">
+        ColumnDefinitions="2*, *">
 
         <Grid.Resources>
             <Style TargetType="Label"
@@ -24,8 +25,11 @@
         <Label 
             Grid.Row="1"
             Grid.Column="1"
-            Text="3" />
+            Text="{Binding RaceNumber}" />
+
+        <!--displayed if Races ending condition-->        
         <Label 
+            IsVisible="{Binding EndingConditionIsRaces}"
             Grid.Row="2">
             <Label.Text>
                 <OnPlatform x:TypeArguments="x:String">
@@ -35,22 +39,62 @@
             </Label.Text>
         </Label>
         <Label
+            IsVisible="{Binding EndingConditionIsRaces}"
             Grid.Row="2"
             Grid.Column="1"
-            Text="20" />
+            Text="{Binding NumberOfRacesSet}" />
         <Label
+            IsVisible="{Binding EndingConditionIsRaces}"
             Grid.Row="3"
             Text="Races finished:" />
         <Label
+            IsVisible="{Binding EndingConditionIsRaces}"
             Grid.Row="3"
             Grid.Column="1"
-            Text="2" />
+            Text="{Binding RacesFinished}" />
         <Label
+            IsVisible="{Binding EndingConditionIsRaces}"
             Grid.Row="4"
             Text="Races to go:" />
         <Label
+            IsVisible="{Binding EndingConditionIsRaces}"
             Grid.Row="4"
             Grid.Column="1"
-            Text="18" />
+            Text="{Binding RacesToGo}" />
+
+        <!--displayed if Time ending condition-->
+        <Label 
+            IsVisible="{Binding EndingConditionIsTime}"
+            Grid.Row="2">
+            <Label.Text>
+                <OnPlatform x:TypeArguments="x:String">
+                    <On Platform="WinUI" Value="Game time set:" />
+                    <On Platform="Android" Value="Total time:" />
+                </OnPlatform>
+            </Label.Text>
+        </Label>
+        <Label
+            IsVisible="{Binding EndingConditionIsTime}"
+            Grid.Row="2"
+            Grid.Column="1"
+            Text="{Binding GameTimeSet}" />
+        <Label
+            IsVisible="{Binding EndingConditionIsTime}"
+            Grid.Row="3"
+            Text="Time elapsed:" />
+        <Label
+            IsVisible="{Binding EndingConditionIsTime}"
+            Grid.Row="3"
+            Grid.Column="1"
+            Text="{Binding TimeElapsed}" />
+        <Label
+            IsVisible="{Binding EndingConditionIsTime}"
+            Grid.Row="4"
+            Text="Time remaining:" />
+        <Label
+            IsVisible="{Binding EndingConditionIsTime}"
+            Grid.Row="4"
+            Grid.Column="1"
+            Text="{Binding TimeRemaining}" />
     </Grid>
 </ContentView>

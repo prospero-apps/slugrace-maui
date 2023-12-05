@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Slugrace.Views.InstructionsPage"
+             xmlns:viewmodels="clr-namespace:Slugrace.ViewModels"
+             x:DataType="viewmodels:GameViewModel">
+
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IsEnabled="False" IsVisible="False" />
+    </Shell.BackButtonBehavior>
+
+    <VerticalStackLayout>
+        <Label 
+            Text="INSTRUCTIONS"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+        <Button
+            Text="Back" 
+            Command="{Binding NavigateBackCommand}" />       
+    </VerticalStackLayout>
+</ContentPage>

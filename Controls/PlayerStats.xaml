@@ -1,13 +1,20 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:viewmodels="clr-namespace:Slugrace.ViewModels"
+             x:DataType="viewmodels:PlayerViewModel"
              x:Class="Slugrace.Controls.PlayerStats">
+
+    <ContentView.BindingContext>
+        <viewmodels:PlayerViewModel />
+    </ContentView.BindingContext>
 
     <ContentView.Resources>
         <Style TargetType="Label"
                    BasedOn="{OnPlatform {StaticResource labelBaseStyle},
                        Android={StaticResource androidLabelBaseStyle}}" />
+        <toolkit:InvertedBoolConverter x:Key="invertedBoolConverter" />
     </ContentView.Resources>
 
     <Grid
@@ -16,11 +23,24 @@
             <ColumnDefinition Width="{OnPlatform 2.5*, Android=*}" />
             <ColumnDefinition Width="{OnPlatform 1.5*, Android=*}" />
         </Grid.ColumnDefinitions>
+
         <Label
-            Text="Player Name" />
+            IsVisible="{Binding IsBankrupt, Converter={StaticResource invertedBoolConverter}}"
+            Text="{Binding Name}" />
         <Label
+            IsVisible="{Binding IsBankrupt}"
+            Text="{Binding Name}"
+            TextColor="Red" 
+            Opacity=".4" />
+        <Label
+            IsVisible="{Binding IsBankrupt, Converter={StaticResource invertedBoolConverter}}"
             Grid.Column="1"
-            Text="has $1000" />
-    </Grid>
-    
+            Text="{Binding CurrentMoney, StringFormat='has ${0}'}" />
+        <Label
+            IsVisible="{Binding IsBankrupt}"
+            Grid.Column="1"
+            Text="is bankrupt" 
+            TextColor="Red"
+            Opacity=".4" />        
+    </Grid>    
 </ContentView>

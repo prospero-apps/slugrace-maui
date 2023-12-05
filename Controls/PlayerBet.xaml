@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:viewmodels="clr-namespace:Slugrace.ViewModels"
-             x:Class="Slugrace.Controls.PlayerBet">
+             xmlns:behaviors="clr-namespace:Slugrace.Behaviors"
+             xmlns:converters="clr-namespace:Slugrace.Converters"
+             x:DataType="viewmodels:PlayerViewModel"
+             IsVisible="{Binding IsInGame}"
+             x:Class="Slugrace.Controls.PlayerBet">   
 
     <ContentView.Resources>
         <Color x:Key="backgroundColorLight">#FFF4E5</Color>
@@ -10,130 +15,201 @@
         <Style TargetType="Label"
                    BasedOn="{OnPlatform {StaticResource labelBaseStyle},
                        Android={StaticResource androidLabelBaseStyle}}" />
+        <converters:ZeroToEmptyStringConverter x:Key="zeroToEmptyConverter" />
+
+        <converters:SelectedSlugToBoolConverter x:Key="slugToBoolConverter" />
+
+        <toolkit:InvertedBoolConverter x:Key="invertedBoolConverter" />        
+
     </ContentView.Resources>
+
+    <Grid>        
     
-    <Grid 
-        BackgroundColor="{OnPlatform 
-            Android={AppThemeBinding 
-                Light={StaticResource backgroundColorLight},
-                Dark={StaticResource backgroundColorDark}}}"
-        Margin="0, 0, 0, 2">
-
-        <Grid.RowDefinitions>
-            <RowDefinition Height="{OnPlatform *, Android=*}" />
-            <RowDefinition Height="{OnPlatform 0, Android=*}" />
-        </Grid.RowDefinitions>         
-
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="{OnPlatform 150, Android=80}" />
-            <ColumnDefinition Width="{OnPlatform .3*, Android=.8*}" />
-            <ColumnDefinition Width="{OnPlatform .1*, Android=.15*}" />
-            <ColumnDefinition Width="{OnPlatform 1.5*, Android=1.4*}" />
-            <ColumnDefinition Width="{OnPlatform 1.5*, Android=1.9*}" />
-            <ColumnDefinition Width="{OnPlatform .3*, Android=.5*}" />
-            <ColumnDefinition Width="{OnPlatform 4*, Android=0}" />
-        </Grid.ColumnDefinitions>
-
-        <Label 
-            Text="Player 1" />
-        <Label
-            Grid.Column="1"
-            Text="bets" />
-        <Label
-            Grid.Column="2"
-            Text="$" />
-        <Entry 
-            x:Name="betAmountEntry"
-            Grid.Column="3"  
-            WidthRequest="{OnPlatform 200, Android=80}" 
-            Placeholder="1 - 1000"
+        <Grid 
+            IsVisible="{Binding IsBankrupt, Converter={StaticResource invertedBoolConverter}}"
             BackgroundColor="{OnPlatform 
-                Android=Transparent}"
-            TextColor="{AppThemeBinding Dark=White}"
-            Keyboard="Numeric"
-            TextChanged="OnBetAmountTextChanged"/>
-        <Slider 
-            Grid.Column="4"
-            Margin="0, 0, 30, 0"/>
+                Android={AppThemeBinding 
+                    Light={StaticResource backgroundColorLight},
+                    Dark={StaticResource backgroundColorDark}}}"
+            Margin="0, 0, 0, 2">
 
-        <Label
-            Grid.Column="5"
-            Text="on" />
+            <Grid.RowDefinitions>
+                <RowDefinition Height="{OnPlatform *, Android=*}" />
+                <RowDefinition Height="{OnPlatform 0, Android=*}" />
+            </Grid.RowDefinitions>         
 
-        <Grid  
-            Grid.Row="{OnPlatform 0, Android=1}"
-            Grid.Column="{OnPlatform 6, Android=0}"
-            Grid.ColumnSpan="{OnPlatform Android=6}"
-            RowDefinitions="*"
-            ColumnDefinitions="*, *, *, *">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="{OnPlatform 150, Android=80}" />
+                <ColumnDefinition Width="{OnPlatform .3*, Android=.8*}" />
+                <ColumnDefinition Width="{OnPlatform .1*, Android=.15*}" />
+                <ColumnDefinition Width="{OnPlatform 1.5*, Android=1.4*}" />
+                <ColumnDefinition Width="{OnPlatform 1.5*, Android=1.9*}" />
+                <ColumnDefinition Width="{OnPlatform .3*, Android=.5*}" />
+                <ColumnDefinition Width="{OnPlatform 4*, Android=0}" />
+            </Grid.ColumnDefinitions>
 
-            <RadioButton 
-                GroupName="player1">
-                <RadioButton.Content>
-                    <Label 
-                        Text="Speedster"
-                        Style="{OnPlatform {StaticResource labelBaseStyle},
-                            Android={StaticResource androidLabelBaseStyle}}">
-                        <Label.Margin>
-                            <OnPlatform x:TypeArguments="Thickness">
-                                <On Platform="WinUI" Value="0" />
-                                <On Platform="Android" Value="-12, 0, 0, 0" />
-                            </OnPlatform>
-                        </Label.Margin>                        
-                    </Label>
-                </RadioButton.Content>
-            </RadioButton>
-            <RadioButton 
+            <Label 
+                Text="{Binding Name}" />
+            <Label
                 Grid.Column="1"
-                GroupName="player1">
-                <RadioButton.Content>
-                    <Label
-                        Text="Trusty"
-                        Style="{OnPlatform {StaticResource labelBaseStyle},
-                            Android={StaticResource androidLabelBaseStyle}}">
-                        <Label.Margin>
-                            <OnPlatform x:TypeArguments="Thickness">
-                                <On Platform="WinUI" Value="0" />
-                                <On Platform="Android" Value="-12, 0, 0, 0" />
-                            </OnPlatform>
-                        </Label.Margin>
-                    </Label>
-                </RadioButton.Content>
-            </RadioButton>
-            <RadioButton 
+                Text="bets" />
+            <Label
                 Grid.Column="2"
-                GroupName="player1">
-                <RadioButton.Content>
-                    <Label
-                        Text="Iffy"
-                        Style="{OnPlatform {StaticResource labelBaseStyle},
-                            Android={StaticResource androidLabelBaseStyle}}">
-                        <Label.Margin>
-                            <OnPlatform x:TypeArguments="Thickness">
-                                <On Platform="WinUI" Value="0" />
-                                <On Platform="Android" Value="-12, 0, 0, 0" />
-                            </OnPlatform>
-                        </Label.Margin>
-                    </Label>
-                </RadioButton.Content>
-            </RadioButton>
-            <RadioButton 
-                Grid.Column="3"
-                GroupName="player1">
-                <RadioButton.Content>
-                    <Label
-                        Text="Slowpoke"
-                        Style="{OnPlatform {StaticResource labelBaseStyle},
-                            Android={StaticResource androidLabelBaseStyle}}">
-                        <Label.Margin>
-                            <OnPlatform x:TypeArguments="Thickness">
-                                <On Platform="WinUI" Value="0" />
-                                <On Platform="Android" Value="-12, 0, 0, 0" />
-                            </OnPlatform>
-                        </Label.Margin>
-                    </Label>
-                </RadioButton.Content>
-            </RadioButton>            
-        </Grid>               
-    </Grid>    
+                Text="$" />
+            <Entry 
+                x:Name="betAmountEntry"
+                Grid.Column="3"  
+                WidthRequest="{OnPlatform 200, Android=80}" 
+                Placeholder="{Binding CurrentMoney, StringFormat='1 - {0}'}"
+                BackgroundColor="{OnPlatform 
+                    Android=Transparent}"
+                TextColor="{AppThemeBinding Dark=White}"
+                Keyboard="Numeric"
+                Text="{Binding BetAmount, Converter={StaticResource zeroToEmptyConverter}}"
+                TextChanged="OnBetAmountTextChanged">
+                <Entry.Behaviors>
+                    <behaviors:NumericInputBehavior />
+                </Entry.Behaviors>
+            </Entry>
+        
+            <Slider 
+                Grid.Column="4"
+                Margin="0, 0, 30, 0"
+                Value="{Binding BetAmount}"
+                Minimum="0"
+                Maximum="{Binding CurrentMoney}"/>
+
+            <Label
+                Grid.Column="5"
+                Text="on" />
+
+            <Grid  
+                Grid.Row="{OnPlatform 0, Android=1}"
+                Grid.Column="{OnPlatform 6, Android=0}"
+                Grid.ColumnSpan="{OnPlatform Android=6}"
+                RowDefinitions="*"
+                ColumnDefinitions="*, *, *, *">
+
+                <RadioButton 
+                    IsChecked="{Binding SelectedSlug, Mode=OneWay,
+                                Converter={StaticResource slugToBoolConverter},
+                                ConverterParameter=Speedster}"
+                    GroupName="{Binding Name}">
+                    <RadioButton.Content>
+                        <Label 
+                            Text="Speedster"
+                            Style="{OnPlatform {StaticResource labelBaseStyle},
+                                Android={StaticResource androidLabelBaseStyle}}">
+                            <Label.Margin>
+                                <OnPlatform x:TypeArguments="Thickness">
+                                    <On Platform="WinUI" Value="0" />
+                                    <On Platform="Android" Value="-12, 0, 0, 0" />
+                                </OnPlatform>
+                            </Label.Margin>
+                        </Label>
+                    </RadioButton.Content>                
+
+                    <RadioButton.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding SelectSlugCommand}"
+                                              CommandParameter="Speedster" />
+                    </RadioButton.GestureRecognizers>
+                </RadioButton>
+            
+                <RadioButton 
+                    Grid.Column="1"
+                    IsChecked="{Binding SelectedSlug, Mode=OneWay,
+                                        Converter={StaticResource slugToBoolConverter},
+                                        ConverterParameter=Trusty}"
+                    GroupName="{Binding Name}">
+                    <RadioButton.Content>
+                        <Label
+                            Text="Trusty"
+                            Style="{OnPlatform {StaticResource labelBaseStyle},
+                                Android={StaticResource androidLabelBaseStyle}}">
+                            <Label.Margin>
+                                <OnPlatform x:TypeArguments="Thickness">
+                                    <On Platform="WinUI" Value="0" />
+                                    <On Platform="Android" Value="-12, 0, 0, 0" />
+                                </OnPlatform>
+                            </Label.Margin>
+                        </Label>
+                    </RadioButton.Content>
+                
+                    <RadioButton.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding SelectSlugCommand}"
+                              CommandParameter="Trusty" />
+                    </RadioButton.GestureRecognizers>
+                </RadioButton>
+
+                <RadioButton 
+                    Grid.Column="2"
+                    IsChecked="{Binding SelectedSlug, Mode=OneWay,
+                                        Converter={StaticResource slugToBoolConverter},
+                                        ConverterParameter=Iffy}"
+                    GroupName="{Binding Name}">
+                    <RadioButton.Content>
+                        <Label
+                            Text="Iffy"
+                            Style="{OnPlatform {StaticResource labelBaseStyle},
+                                Android={StaticResource androidLabelBaseStyle}}">
+                            <Label.Margin>
+                                <OnPlatform x:TypeArguments="Thickness">
+                                    <On Platform="WinUI" Value="0" />
+                                    <On Platform="Android" Value="-12, 0, 0, 0" />
+                                </OnPlatform>
+                            </Label.Margin>
+                        </Label>
+                    </RadioButton.Content>
+
+                    <RadioButton.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding SelectSlugCommand}"
+                              CommandParameter="Iffy" />
+                    </RadioButton.GestureRecognizers>
+                </RadioButton>
+
+
+                <RadioButton 
+                    Grid.Column="3"
+                    IsChecked="{Binding SelectedSlug, Mode=OneWay,
+                                        Converter={StaticResource slugToBoolConverter},
+                                        ConverterParameter=Slowpoke}"
+                    GroupName="{Binding Name}">
+                    <RadioButton.Content>
+                        <Label
+                            Text="Slowpoke"
+                            Style="{OnPlatform {StaticResource labelBaseStyle},
+                                Android={StaticResource androidLabelBaseStyle}}">
+                            <Label.Margin>
+                                <OnPlatform x:TypeArguments="Thickness">
+                                    <On Platform="WinUI" Value="0" />
+                                    <On Platform="Android" Value="-12, 0, 0, 0" />
+                                </OnPlatform>
+                            </Label.Margin>
+                        </Label>
+                    </RadioButton.Content>
+                
+                    <RadioButton.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding SelectSlugCommand}"
+                              CommandParameter="Slowpoke" />
+                    </RadioButton.GestureRecognizers>
+                </RadioButton>                       
+            </Grid>               
+        </Grid>
+
+        <Grid
+            IsVisible="{Binding IsBankrupt}"
+            RowDefinitions="*">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="{OnPlatform 150, Android=80}" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Label 
+                Text="{Binding Name}"
+                TextColor="Red"
+                TextDecorations="Strikethrough"
+                Opacity=".4" />            
+        </Grid>
+
+    </Grid>
 </ContentView>

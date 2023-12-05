@@ -3,12 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:controls="clr-namespace:Slugrace.Controls"
              xmlns:viewmodels="clr-namespace:Slugrace.ViewModels"
+             x:DataType="viewmodels:GameViewModel"
              x:Class="Slugrace.Controls.PlayersStats">
 
     <ContentView.Resources>
         <Style TargetType="Label" BasedOn="{StaticResource labelBaseStyle}" />
     </ContentView.Resources>
-    
+       
     <Grid
         RowDefinitions="*, *, *, *, *"
         ColumnDefinitions="*">
@@ -16,13 +17,17 @@
             Text="Players' Stats"
             Style="{OnPlatform {StaticResource labelSectionTitleStyle},
                 Android={StaticResource androidLabelSectionTitleStyle}}" />
-        <controls:PlayerStats 
-            Grid.Row="1" />
-        <controls:PlayerStats 
-            Grid.Row="2" />
-        <controls:PlayerStats 
-            Grid.Row="3" />
-        <controls:PlayerStats 
-            Grid.Row="4" />
+
+        <CollectionView 
+            Grid.Row="1" 
+            Grid.RowSpan="4"
+            ItemsSource="{Binding Players}">            
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <controls:PlayerStats Margin="0, 2.5"/>                                  
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
     </Grid>
 </ContentView>

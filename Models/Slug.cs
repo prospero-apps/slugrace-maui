@@ -2,10 +2,13 @@
 
 public class Slug
 {
-    public int Id { get; set; }
     public string Name { get; set; }
     public double Odds { get; set; }
     public double PreviousOdds { get; set; }
     public int WinNumber { get; set; }
     public string ImageUrl { get; set; }
+    public string EyeImageUrl { get; set; }
+    public string BodyImageUrl { get; set; }
+    public double BaseOdds { get; set; }
+    public bool IsRaceWinner { get; set; }
 }

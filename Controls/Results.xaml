@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:controls="clr-namespace:Slugrace.Controls"
              xmlns:viewmodels="clr-namespace:Slugrace.ViewModels"
+             x:DataType="viewmodels:GameViewModel"
              x:Class="Slugrace.Controls.Results">
 
     <ContentView.Resources>
         <Style TargetType="Label" BasedOn="{StaticResource labelBaseStyle}" />
+        <toolkit:InvertedBoolConverter x:Key="invertedBoolConverter" />
     </ContentView.Resources>
     
     <Grid>
@@ -23,15 +26,22 @@
         <VerticalStackLayout 
             Grid.Row="1"
             Spacing="{OnPlatform 0, Android=15}">
-            <controls:PlayerResult />
-            <controls:PlayerResult />
-            <controls:PlayerResult />
-            <controls:PlayerResult />
+
+            <CollectionView ItemsSource="{Binding Players}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <controls:PlayerResult />
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
         </VerticalStackLayout>
 
         <Button
             Grid.Row="2"
             Text="Next Race"
-            Margin="0, 0, 0, 5"/>
+            Margin="0, 0, 0, 5"
+            IsEnabled="{Binding IsShowingFinalResults,
+                                Converter={StaticResource invertedBoolConverter}}"
+            Command="{Binding NextRaceCommand}" />
     </Grid>
 </ContentView>

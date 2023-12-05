@@ -2,8 +2,13 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewmodels="clr-namespace:Slugrace.ViewModels"
+             x:DataType="viewmodels:SlugViewModel"
              x:Class="Slugrace.Controls.SlugStats">
-    
+
+    <ContentView.BindingContext>
+        <viewmodels:SlugViewModel />
+    </ContentView.BindingContext>
+
     <ContentView.Resources>
         <Style TargetType="Label"
                    BasedOn="{OnPlatform {StaticResource labelBaseStyle},
@@ -19,13 +24,12 @@
         </Grid.ColumnDefinitions>
 
         <Label
-            Text="Slug Name" />
+            Text="{Binding Name}" />
         <Label
             Grid.Column="1"
-            Text="4 wins" />
+            Text="{Binding WinNumberText}" />
         <Label
             Grid.Column="2"
-            Text="46%" />
-    </Grid>
-    
+            Text="{Binding WinPercentage, StringFormat='{0}%'}" />        
+    </Grid>    
 </ContentView>

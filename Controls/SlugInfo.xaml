@@ -2,6 +2,7 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewmodels="clr-namespace:Slugrace.ViewModels"
+             x:DataType="viewmodels:SlugViewModel"
              x:Class="Slugrace.Controls.SlugInfo">
     
     <ContentView.Resources>
@@ -13,14 +14,14 @@
         RowDefinitions="*, *"
         ColumnDefinitions="6.8*, 2.2*">
         <Label 
-            Text="Speedster"
+            Text="{Binding Name}"
             FontSize="18"
             FontAttributes="{StaticResource emphasized}"
             TextColor="{StaticResource infoTextColor}"
             Opacity="{OnPlatform 1, Android=0}" />
         <Label 
             Grid.Row="1"
-            Text="0 wins"
+            Text="{Binding WinNumberText}"
             FontSize="14"
             TextColor="{StaticResource infoTextColor}"
             Opacity="{OnPlatform 1, Android=0}" />
@@ -28,9 +29,9 @@
             Grid.Column="1"
             Grid.RowSpan="2"
             VerticalOptions="{StaticResource defaultLayoutOptions}"
-            Text="1.40"
+            Text="{Binding Odds, StringFormat='{0:F2}'}"
             FontSize="{OnPlatform 40, Android=12}"
             FontAttributes="{StaticResource emphasized}"
             TextColor="{StaticResource infoTextColor}"/>
-    </Grid>
+    </Grid>    
 </ContentView>

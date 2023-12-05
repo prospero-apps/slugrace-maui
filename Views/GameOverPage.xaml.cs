@@ -1,4 +1,3 @@
-using Microsoft.Maui.Controls.Xaml;
 using Slugrace.ViewModels;
 
 namespace Slugrace.Views;

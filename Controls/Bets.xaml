@@ -2,8 +2,10 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:controls="clr-namespace:Slugrace.Controls"
-             x:Class="Slugrace.Controls.Bets">
-  
+             xmlns:viewmodels="clr-namespace:Slugrace.ViewModels"
+             x:DataType="viewmodels:GameViewModel"
+             x:Class="Slugrace.Controls.Bets">    
+
     <ContentView.Resources>
         <Style TargetType="Label" BasedOn="{StaticResource labelBaseStyle}" />
         <Style TargetType="Slider">
@@ -29,17 +31,25 @@
             Text="Bets"
             Style="{OnPlatform {StaticResource labelSectionTitleStyle},
                 Android={StaticResource androidLabelSectionTitleStyle}}" />
-        <VerticalStackLayout
-            Grid.Row="1">
-            <controls:PlayerBet />
-            <controls:PlayerBet />
-            <controls:PlayerBet />
-            <controls:PlayerBet />
-        </VerticalStackLayout>
         
+        <VerticalStackLayout
+            x:Name="betControls" 
+            Grid.Row="1">
+
+            <CollectionView ItemsSource="{Binding Players}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <controls:PlayerBet />
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VerticalStackLayout>
+
         <Button
             Grid.Row="2"
             Text="Go" 
-            Margin="0, 0, 0, 5"/>
+            Margin="0, 0, 0, 5"
+            IsEnabled="{Binding AllPlayersAreValid}" 
+            Command="{Binding StartRaceCommand}" />
     </Grid>
 </ContentView>

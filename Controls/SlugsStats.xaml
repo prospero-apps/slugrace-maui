@@ -3,7 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:controls="clr-namespace:Slugrace.Controls"
              xmlns:viewmodels="clr-namespace:Slugrace.ViewModels"
+             x:DataType="viewmodels:GameViewModel"
              x:Class="Slugrace.Controls.SlugsStats">
+
+    <ContentView.Resources>
+        <Style TargetType="Label" BasedOn="{StaticResource labelBaseStyle}" />
+    </ContentView.Resources>
 
     <Grid 
         RowDefinitions="*, *, *, *, *"
@@ -11,14 +16,18 @@
         <Label
             Text="Slugs' Stats"
             Style="{OnPlatform {StaticResource labelSectionTitleStyle},
-                Android={StaticResource androidLabelSectionTitleStyle}}" />
+                Android={StaticResource androidLabelSectionTitleStyle}}" />        
         <controls:SlugStats 
+            BindingContext="{Binding Slugs[0]}"
             Grid.Row="1" />
         <controls:SlugStats 
+            BindingContext="{Binding Slugs[1]}"
             Grid.Row="2" />
         <controls:SlugStats 
+            BindingContext="{Binding Slugs[2]}"
             Grid.Row="3" />
         <controls:SlugStats 
+            BindingContext="{Binding Slugs[3]}"
             Grid.Row="4" />
     </Grid>    
 </ContentView>

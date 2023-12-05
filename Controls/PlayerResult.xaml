@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:viewmodels="clr-namespace:Slugrace.ViewModels"
+             x:DataType="viewmodels:PlayerViewModel"
+             IsVisible="{Binding IsInGame}"
              x:Class="Slugrace.Controls.PlayerResult">
 
     <ContentView.Resources>
@@ -10,61 +13,78 @@
         <Style TargetType="Label"
                    BasedOn="{OnPlatform {StaticResource labelBaseStyle},
                        Android={StaticResource androidLabelBaseStyle}}" />
+
+        <toolkit:InvertedBoolConverter x:Key="invertedBoolConverter" />
+
     </ContentView.Resources>
 
-    <Grid 
-        BackgroundColor="{OnPlatform 
-            Android={AppThemeBinding 
-                Light={StaticResource backgroundColorLight},
-                Dark={StaticResource backgroundColorDark}}}"
-        RowSpacing="{OnPlatform 0, Android=10}"
-        Margin="0, 0, 0, 5">
+    <Grid>           
+        <Grid 
+            IsVisible="{Binding IsBankrupt, Converter={StaticResource invertedBoolConverter}}"
+            BackgroundColor="{OnPlatform 
+                Android={AppThemeBinding 
+                    Light={StaticResource backgroundColorLight},
+                    Dark={StaticResource backgroundColorDark}}}"
+            RowSpacing="{OnPlatform 0, Android=10}"
+            Margin="0, 0, 0, 5">
 
-        <Grid.RowDefinitions>
-            <RowDefinition Height="{OnPlatform *, Android=*}" />
-            <RowDefinition Height="{OnPlatform 0, Android=*}" />
-        </Grid.RowDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="{OnPlatform *, Android=*}" />
+                <RowDefinition Height="{OnPlatform 0, Android=*}" />
+            </Grid.RowDefinitions>
 
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="{OnPlatform *, Android=1.2*}" />
-            <ColumnDefinition Width="{OnPlatform *, Android=1.4*}" />
-            <ColumnDefinition Width="{OnPlatform *, Android=*}" />
-            <ColumnDefinition Width="{OnPlatform *, Android=1.2*}" />
-            <ColumnDefinition Width="{OnPlatform *, Android=0}" />
-            <ColumnDefinition Width="{OnPlatform *, Android=0}" />
-            <ColumnDefinition Width="{OnPlatform *, Android=0}" />
-        </Grid.ColumnDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="{OnPlatform *, Android=1.2*}" />
+                <ColumnDefinition Width="{OnPlatform *, Android=1.4*}" />
+                <ColumnDefinition Width="{OnPlatform *, Android=*}" />
+                <ColumnDefinition Width="{OnPlatform *, Android=1.2*}" />
+                <ColumnDefinition Width="{OnPlatform *, Android=0}" />
+                <ColumnDefinition Width="{OnPlatform *, Android=0}" />
+                <ColumnDefinition Width="{OnPlatform *, Android=0}" />
+            </Grid.ColumnDefinitions>
 
-        <Label 
-            Text="Player 1" />
-        <Label
-            Grid.Column="1"
-            Text="had $1000," />
-        <Label
-            Grid.Column="2"
-            Text="bet $250" />
-        <Label 
-            Grid.Column="3"
-            Text="on Speedster,"/>
-        <Label 
-            Grid.Row="{OnPlatform 0, Android=1}"
-            Grid.Column="{OnPlatform 4, Android=0}"
-            Text="lost $250,"/>
-        <Label
-            Grid.Row="{OnPlatform 0, Android=1}"
-            Grid.Column="{OnPlatform 5, Android=1}" >
-            <Label.Text>
-                <OnPlatform x:TypeArguments="x:String">
-                    <On Platform="WinUI" Value="now has $750. " />
-                    <On Platform="Android" Value="has $750. " />
-                </OnPlatform>
-            </Label.Text>
-        </Label>
-        
-        <Label
-            Grid.Row="{OnPlatform 0, Android=2}"
-            Grid.Column="{OnPlatform 6, Android=2}"
-            Grid.ColumnSpan="{OnPlatform 1, Android=2}"
-            Text="The odds were 1.64." />
-    </Grid>    
+            <Label 
+                Text="{Binding Name}" />
+            <Label
+                Grid.Column="1"
+                Text="{Binding PreviousMoney, StringFormat='had ${0},'}" />
+            <Label
+                Grid.Column="2"
+                Text="{Binding BetAmount, StringFormat='bet ${0}'}" />
+            <Label 
+                Grid.Column="3"
+                Text="{Binding SelectedSlug.Name, StringFormat='on {0},'}" />
+            <Label 
+                Grid.Row="{OnPlatform 0, Android=1}"
+                Grid.Column="{OnPlatform 4, Android=0}"
+                Text="{Binding ResultMessage, StringFormat='{0},'}" />
+            <Label
+                Grid.Row="{OnPlatform 0, Android=1}"
+                Grid.Column="{OnPlatform 5, Android=1}" 
+                Text="{OnPlatform {Binding CurrentMoney, StringFormat='now has ${0}.'},
+                    Android={Binding CurrentMoney, StringFormat='has ${0}.'}}">                                  
+            </Label>
+
+            <Label
+                Grid.Row="{OnPlatform 0, Android=2}"
+                Grid.Column="{OnPlatform 6, Android=2}"
+                Grid.ColumnSpan="{OnPlatform 1, Android=2}"
+                Text="{Binding SelectedSlug.PreviousOdds, StringFormat='The odds were {0:F2}'}" />
+        </Grid>
+
+        <Grid
+            IsVisible="{Binding IsBankrupt}"
+            RowDefinitions="*">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="{OnPlatform *, Android=1.2*}" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Label 
+                Text="{Binding Name}"
+                TextColor="Red"
+                TextDecorations="Strikethrough"
+                Opacity=".4" />
+        </Grid>
+    </Grid>
 </ContentView>

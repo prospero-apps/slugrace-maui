@@ -3,12 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:controls="clr-namespace:Slugrace.Controls"
              xmlns:viewmodels="clr-namespace:Slugrace.ViewModels"
+             x:DataType="viewmodels:GameViewModel"
              x:Class="Slugrace.Controls.Racetrack">      
     <Grid
         ColumnDefinitions="9*, 2*">
-        <controls:TrackImage
+        <controls:TrackImage            
             Margin="20, 0, 0, 0" />
-        <controls:WinnerInfo
+        <controls:WinnerInfo            
             Grid.Column="1" />
     </Grid>
 </ContentView>

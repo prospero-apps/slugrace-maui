@@ -1,3 +1,5 @@
+using Slugrace.ViewModels;
+
 namespace Slugrace.Controls;
 
 public partial class PlayerBet : ContentView
@@ -10,6 +12,10 @@ public partial class PlayerBet : ContentView
 
     private void OnBetAmountTextChanged(object sender, TextChangedEventArgs e)
     {
-        Helpers.ValidateNumericInputAndSetState(e.NewTextValue, 1, 1000, betAmountEntry);
+        if (BindingContext != null)
+        {
+            bool betAmountValid = (BindingContext as PlayerViewModel).BetAmountIsValid;
+            Helpers.HandleNumericEntryState(betAmountValid, betAmountEntry);
+        }
     }
 }

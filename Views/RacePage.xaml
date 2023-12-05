@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:local="clr-namespace:Slugrace"
              xmlns:controls="clr-namespace:Slugrace.Controls"
              xmlns:viewmodels="clr-namespace:Slugrace.ViewModels"
-             x:DataType="viewmodels:RaceViewModel"
+             x:DataType="viewmodels:GameViewModel"
              x:Class="Slugrace.Views.RacePage" 
              Padding="5">
 
+    <ContentPage.Resources>
+        <toolkit:EnumToBoolConverter x:Key="raceStatusConverter" />
+    </ContentPage.Resources>
+   
     <Shell.BackButtonBehavior>
         <BackButtonBehavior IsEnabled="False" IsVisible="False" />
     </Shell.BackButtonBehavior>
@@ -31,8 +37,8 @@
             Grid.Row="{OnPlatform 0, Android=3}"
             Grid.Column="{OnPlatform 0, Android=1}"
             HorizontalOptions="{OnPlatform Android=Fill}">
-            <controls:GameInfo/>
-        </Border>     
+            <controls:GameInfo />
+        </Border>        
 
         <!--Slugs' Stats-->        
         <Border 
@@ -60,9 +66,17 @@
             Padding="5"
             Spacing="3">
             <Button
-                Text="End Game" />
+                Text="End Game"
+                Command="{Binding EndGameManuallyCommand}"
+                IsEnabled="{Binding RaceStatus, 
+                    Converter={StaticResource raceStatusConverter},
+                    ConverterParameter={x:Static local:RaceStatus.Finished}}" />            
             <Button
-                Text="Instructions" />
+                Text="Instructions"
+                IsEnabled="{Binding RaceStatus, 
+                    Converter={StaticResource raceStatusConverter},
+                    ConverterParameter={x:Static local:RaceStatus.Finished}}"
+                Command="{Binding SeeInstructionsCommand}" />
             <Button 
                 ImageSource="{AppThemeBinding Light=sound_on.png, Dark=sound_on_dark.png}" 
                 WidthRequest="{OnPlatform 125, Android=150}"
@@ -77,12 +91,42 @@
             <controls:Racetrack />
         </Border>
                 
-        <!--Bets/Results panel-->        
+        <!--Bets panel-->
         <Border    
+            IsVisible="{Binding RaceStatus, 
+                                Converter={StaticResource raceStatusConverter},
+                                ConverterParameter={x:Static local:RaceStatus.NotYetStarted}}"
             Grid.Row="{OnPlatform 2, Android=0}"
             Grid.ColumnSpan="4"
             HorizontalOptions="{OnPlatform Android=Fill}">
             <controls:Bets />
+        </Border>
+        
+        <!--Race Started panel -->
+        <Border
+            IsVisible="{Binding RaceStatus, 
+                    Converter={StaticResource raceStatusConverter},
+                    ConverterParameter={x:Static local:RaceStatus.Started}}"
+            Grid.Row="{OnPlatform 2, Android=0}"
+            Grid.ColumnSpan="4"
+            HorizontalOptions="{OnPlatform Android=Fill}">            
+            <Label
+                Text="RACE STARTED"
+                VerticalOptions="Center"
+                HorizontalOptions="Center"
+                FontSize="50"
+                CharacterSpacing="2" />
+        </Border>
+
+        <!--Results panel-->
+        <Border   
+            IsVisible="{Binding RaceStatus, 
+                    Converter={StaticResource raceStatusConverter},
+                    ConverterParameter={x:Static local:RaceStatus.Finished}}"
+            Grid.Row="{OnPlatform 2, Android=0}"
+            Grid.ColumnSpan="4"
+            HorizontalOptions="{OnPlatform Android=Fill}">
+            <controls:Results />
         </Border>
     </Grid>  
 </ContentPage>
