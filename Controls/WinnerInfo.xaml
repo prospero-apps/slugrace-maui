@@ -12,15 +12,14 @@
             <Setter Property="FontAttributes" Value="Bold" />
             <Setter Property="HorizontalOptions" Value="Center" />
         </Style>
-        <toolkit:EnumToBoolConverter x:Key="raceStatusConverter" />
-    </ContentView.Resources>
+
+        <toolkit:IsNotNullConverter x:Key="raceResolvedConverter" />
+    </ContentView.Resources>    
 
     <Grid
-        IsVisible="{Binding RaceStatus, 
-           Converter={StaticResource raceStatusConverter},
-           ConverterParameter={x:Static local:RaceStatus.Finished}}"
+        IsVisible="{Binding RaceWinnerSlug, Converter={StaticResource raceResolvedConverter}}"
         RowDefinitions=".6*, *, 3*">
-        
+
         <Label 
             Text="The winner is"
             FontSize="{OnPlatform 28, Android=10}" />

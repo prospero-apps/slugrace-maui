@@ -123,9 +123,12 @@ public partial class SlugViewModel : ObservableObject
                 OnPropertyChanged();
             }
         }
-    }       
+    }
+        
+    [ObservableProperty]
+    private uint runningTime;
 
-    public SlugViewModel() 
+    public SlugViewModel()
     {
         slug = new Slug();
 
@@ -134,7 +137,7 @@ public partial class SlugViewModel : ObservableObject
         WeakReferenceMessenger.Default.Register<RaceFinishedMessage>(this, (r, m) =>
             OnRaceFinishedMessageReceived(m.Value));
     }
-       
+
     private void OnRaceFinishedMessageReceived(RaceStatus value)
     {
         WinPercentage = (int)((double)WinNumber / CurrentRaceNumber * 100);

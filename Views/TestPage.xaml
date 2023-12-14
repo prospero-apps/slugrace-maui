@@ -7,20 +7,22 @@
              Title="TestPage"
              Padding="50">
 
-    <Shell.BackButtonBehavior>
-        <BackButtonBehavior IsEnabled="False" IsVisible="False" />
-    </Shell.BackButtonBehavior>
+    <VerticalStackLayout>
+        <Label x:Name="label"
+           Text="0"
+           HorizontalOptions="Center"
+           Margin="0, 0, 0, 100"
+           FontSize="40" />
 
-    <VerticalStackLayout WidthRequest="600">
-        <Label Text="Test Page"
-               FontSize="40" />
-        <Label Text="{Binding Team.Count, StringFormat='team size: {0} players'}"
-               FontSize="30" />
-        <Label Text="{Binding Team[0].PlayerInitialMoney, StringFormat='The captain has ${0}.'}"
-               FontSize="20" />
-        <Button 
-            Text="Back to settings"
-            Command="{Binding NavigateBackCommand}" />
+        <BoxView x:Name="box"
+                 Color="Red"
+                 WidthRequest="150"
+                 HeightRequest="100" />
+        
+        <Button
+            Text="Start Animation"
+            Margin="0, 100, 0, 0"
+            Command="{Binding AnimateCommand}" />
     </VerticalStackLayout>
 </ContentPage>
 

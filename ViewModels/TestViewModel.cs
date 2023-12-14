@@ -1,18 +1,21 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using System.Collections.ObjectModel;
 
 namespace Slugrace.ViewModels;
 
-[QueryProperty(nameof(Team), "Team")]
 public partial class TestViewModel : ObservableObject
 {
     [ObservableProperty]
-    ObservableCollection<PlayerSettingsViewModel> team;
+    private bool isHidden;
+
+    [ObservableProperty]
+    private bool isRunning;
 
     [RelayCommand]
-    async Task NavigateBack()
+    async Task Animate()
     {
-        await Shell.Current.GoToAsync("..");
+        IsRunning = true;
+        await Task.Delay(5000);
+        IsRunning = false;
     }
 }
