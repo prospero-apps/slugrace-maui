@@ -2,6 +2,7 @@
 using Slugrace.Views;
 using Slugrace.ViewModels;
 using CommunityToolkit.Maui;
+using Plugin.Maui.Audio;
 
 namespace Slugrace;
 
@@ -35,6 +36,10 @@ public static class MauiProgram
 		builder.Services.AddTransient<GameOverViewModel>();
 
         builder.Services.AddTransient<InstructionsPage>();
+
+		builder.Services.AddTransient<SoundViewModel>();
+
+		builder.Services.AddSingleton(AudioManager.Current);
 
         return builder.Build();
 	}

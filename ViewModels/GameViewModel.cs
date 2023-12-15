@@ -12,6 +12,8 @@ namespace Slugrace.ViewModels;
 [QueryProperty(nameof(Game), "Game")]
 public partial class GameViewModel : ObservableObject
 {
+    SoundViewModel soundViewModel;
+
     [ObservableProperty]
     private Game game;
 
@@ -143,8 +145,11 @@ public partial class GameViewModel : ObservableObject
     }
 
     public bool? AllPlayersAreValid => Players?.All(p => p.PlayerIsValid);
-       
-    public GameViewModel()
+
+    [ObservableProperty]
+    private bool muted;
+      
+    public GameViewModel(SoundViewModel soundViewModel)
     {
         gameTimer = Application.Current.Dispatcher.CreateTimer();
         gameTimer.Interval = TimeSpan.FromSeconds(1);
@@ -163,6 +168,8 @@ public partial class GameViewModel : ObservableObject
 
         gameOverPageDelayTimer = Application.Current.Dispatcher.CreateTimer();
         gameOverPageDelayTimer.Interval = TimeSpan.FromSeconds(3);
+
+        this.soundViewModel = soundViewModel;
 
         WeakReferenceMessenger.Default.Register<PlayerBetAmountChangedMessage>(this, (r, m) =>
             OnBetAmountChangedMessageReceived(m.Value));
@@ -205,7 +212,8 @@ public partial class GameViewModel : ObservableObject
                 BodyImageUrl = value.Slugs[0].BodyImageUrl,
                 WinNumber = 0,
                 Odds = Math.Round(value.Slugs[0].BaseOdds + new Random().Next(0, 10) / 100, 2),
-                PreviousOdds = value.Slugs[0].BaseOdds
+                PreviousOdds = value.Slugs[0].BaseOdds,
+                WinSound = value.Slugs[0].WinSound
             },
             new()
             {
@@ -215,7 +223,8 @@ public partial class GameViewModel : ObservableObject
                 BodyImageUrl = value.Slugs[1].BodyImageUrl,
                 WinNumber = 0,
                 Odds = Math.Round(value.Slugs[1].BaseOdds + new Random().Next(0, 10) / 100, 2),
-                PreviousOdds = value.Slugs[1].BaseOdds
+                PreviousOdds = value.Slugs[1].BaseOdds,
+                WinSound = value.Slugs[1].WinSound
             },
             new()
             {
@@ -225,7 +234,8 @@ public partial class GameViewModel : ObservableObject
                 BodyImageUrl = value.Slugs[2].BodyImageUrl,
                 WinNumber = 0,
                 Odds = Math.Round(value.Slugs[2].BaseOdds + new Random().Next(0, 10) / 100, 2),
-                PreviousOdds = value.Slugs[2].BaseOdds
+                PreviousOdds = value.Slugs[2].BaseOdds,
+                WinSound = value.Slugs[2].WinSound
             },
             new()
             {
@@ -235,7 +245,8 @@ public partial class GameViewModel : ObservableObject
                 BodyImageUrl = value.Slugs[3].BodyImageUrl,
                 WinNumber = 0,
                 Odds = Math.Round(value.Slugs[3].BaseOdds + new Random().Next(0, 10) / 100, 2),
-                PreviousOdds = value.Slugs[3].BaseOdds
+                PreviousOdds = value.Slugs[3].BaseOdds,
+                WinSound = value.Slugs[3].WinSound
             },
         ];
                 
@@ -263,6 +274,8 @@ public partial class GameViewModel : ObservableObject
         Players = players;
 
         PlayersStillInGame = Players.ToObservableCollection();
+
+        soundViewModel.PlayBackgroundMusic("Game", "Background Music.mp3");
     }
 
     [RelayCommand]
@@ -276,18 +289,26 @@ public partial class GameViewModel : ObservableObject
             gameTimer.Start();
         }
 
-        await RunRace();      
+        soundViewModel.PlaySound("Game", "Go.mp3", .2);        
+
+        await RunRace();        
     }
 
     private async Task RunRace()
     {
+        soundViewModel.PlaySound("Game", "Slugs Running.mp3", .5, true);
+
         await Task.Delay((int)FinishTime);
 
         RaceWinnerSlug = Slugs.Where(s => s.RunningTime == MinTime).FirstOrDefault();
 
+        soundViewModel.PlaySound("Slugs Winning", RaceWinnerSlug.WinSound);
+
         await Task.Delay((int)(RaceTime - FinishTime));
                 
-        RaceWinnerSlug.IsRaceWinner = true;
+        RaceWinnerSlug.IsRaceWinner = true;        
+
+        soundViewModel.Clean();
 
         HandleSlugsAfterRace();
 
@@ -399,11 +420,15 @@ public partial class GameViewModel : ObservableObject
 
         gameOverPageDelayTimer.Start();
 
+        await soundViewModel.Attenuate();
+
         gameOverPageDelayTimer.Tick += async (sender, e) =>
         {
             gameOverPageDelayTimer.Stop();
 
             IsShowingFinalResults = false;
+
+            soundViewModel.PlaySound("Game", "Game Over.mp3", .5);
 
             // Navigate to GameOverPage
             await Shell.Current.GoToAsync($"{nameof(GameOverPage)}",
@@ -411,7 +436,9 @@ public partial class GameViewModel : ObservableObject
                 {
                     {"Game", this }
                 });
-        };        
+        };  
+                
+        soundViewModel.Stop();
     }
 
     [RelayCommand]
@@ -441,6 +468,12 @@ public partial class GameViewModel : ObservableObject
     {       
         await Shell.Current.GoToAsync("..");
     }
-}
 
+    [RelayCommand]
+    public void MuteUnmute()
+    {
+        soundViewModel.MuteUnmute();
+        Muted = soundViewModel.Muted;
+    }
+}
 

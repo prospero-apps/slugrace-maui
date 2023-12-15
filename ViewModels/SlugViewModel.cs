@@ -124,7 +124,20 @@ public partial class SlugViewModel : ObservableObject
             }
         }
     }
-        
+
+    public string WinSound
+    {
+        get => slug.WinSound;
+        set
+        {
+            if (slug.WinSound != value)
+            {
+                slug.WinSound = value;
+                OnPropertyChanged();
+            }
+        }
+    }
+
     [ObservableProperty]
     private uint runningTime;
 
@@ -137,6 +150,7 @@ public partial class SlugViewModel : ObservableObject
         WeakReferenceMessenger.Default.Register<RaceFinishedMessage>(this, (r, m) =>
             OnRaceFinishedMessageReceived(m.Value));
     }
+        
 
     private void OnRaceFinishedMessageReceived(RaceStatus value)
     {

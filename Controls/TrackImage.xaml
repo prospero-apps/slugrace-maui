@@ -59,6 +59,5 @@
             BindingContext="{Binding Slugs[3]}"
             AbsoluteLayout.LayoutBounds="0, 1.02, 1, .25"
             AbsoluteLayout.LayoutFlags="All"/>
-        <Label x:Name="aaa" FontSize="80" Text="000"/>
     </AbsoluteLayout>  
 </ContentView>

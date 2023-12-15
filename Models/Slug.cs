@@ -11,4 +11,5 @@ public class Slug
     public string BodyImageUrl { get; set; }
     public double BaseOdds { get; set; }
     public bool IsRaceWinner { get; set; }
+    public string WinSound {  get; set; }
 }

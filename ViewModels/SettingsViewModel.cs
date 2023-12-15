@@ -112,8 +112,8 @@ public partial class SettingsViewModel : ObservableObject
             new() { PlayerId = 2, PlayerIsInGame = true },
             new() { PlayerId = 3, PlayerIsInGame = false },
             new() { PlayerId = 4, PlayerIsInGame = false }
-        ];        
-
+        ];
+        
         WeakReferenceMessenger.Default.Register<PlayerNameChangedMessage>(this, (r, m) =>
             OnPlayerNameChangedMessageReceived(m.Value));
 
@@ -171,7 +171,8 @@ public partial class SettingsViewModel : ObservableObject
                 BaseOdds = 1.33, 
                 ImageUrl = "speedster.png",
                 EyeImageUrl = "speedster_eye.png",
-                BodyImageUrl = "speedster_body.png"
+                BodyImageUrl = "speedster_body.png",
+                WinSound = "Speedster Win.mp3"
             },
             new Slug 
             { 
@@ -179,7 +180,8 @@ public partial class SettingsViewModel : ObservableObject
                 BaseOdds = 1.59, 
                 ImageUrl = "trusty.png",
                 EyeImageUrl = "trusty_eye.png",
-                BodyImageUrl = "trusty_body.png"
+                BodyImageUrl = "trusty_body.png",
+                WinSound = "Trusty Win.mp3"
             },
             new Slug 
             { 
@@ -187,7 +189,8 @@ public partial class SettingsViewModel : ObservableObject
                 BaseOdds = 2.5, 
                 ImageUrl = "iffy.png",
                 EyeImageUrl = "iffy_eye.png",
-                BodyImageUrl = "iffy_body.png"
+                BodyImageUrl = "iffy_body.png",
+                WinSound = "Iffy Win.mp3"
             },
             new Slug 
             { 
@@ -195,7 +198,8 @@ public partial class SettingsViewModel : ObservableObject
                 BaseOdds = 2.89, 
                 ImageUrl = "slowpoke.png",
                 EyeImageUrl = "slowpoke_eye.png",
-                BodyImageUrl = "slowpoke_body.png"
+                BodyImageUrl = "slowpoke_body.png",
+                WinSound = "Slowpoke Win.mp3"
             }
         ];
                

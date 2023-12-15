@@ -11,8 +11,14 @@
 
     <ContentPage.Resources>
         <toolkit:EnumToBoolConverter x:Key="raceStatusConverter" />
+        <toolkit:InvertedBoolConverter x:Key="invertedBoolConverter" />
+        <Style x:Key="soundStyle" TargetType="Button">
+            <Setter Property="WidthRequest" Value="{OnPlatform 125, Android=150}" />
+            <Setter Property="HorizontalOptions" Value="{OnPlatform Default=End, Android=Center}" />
+            <Setter Property="Command" Value="{Binding MuteUnmuteCommand}" />
+        </Style>
     </ContentPage.Resources>
-   
+    
     <Shell.BackButtonBehavior>
         <BackButtonBehavior IsEnabled="False" IsVisible="False" />
     </Shell.BackButtonBehavior>
@@ -76,11 +82,15 @@
                 IsEnabled="{Binding RaceStatus, 
                     Converter={StaticResource raceStatusConverter},
                     ConverterParameter={x:Static local:RaceStatus.Finished}}"
-                Command="{Binding SeeInstructionsCommand}" />
+                Command="{Binding SeeInstructionsCommand}" />            
             <Button 
+                Style="{StaticResource soundStyle}"
                 ImageSource="{AppThemeBinding Light=sound_on.png, Dark=sound_on_dark.png}" 
-                WidthRequest="{OnPlatform 125, Android=150}"
-                HorizontalOptions="{OnPlatform Default=End, Android=Center}"/>
+                IsVisible="{Binding Muted, Converter={StaticResource invertedBoolConverter}}" />
+            <Button 
+                Style="{StaticResource soundStyle}"
+                ImageSource="{AppThemeBinding Light=sound_off.png, Dark=sound_off_dark.png}" 
+                IsVisible="{Binding Muted}" />          
         </VerticalStackLayout>
                 
         <!--Racetrack-->        
