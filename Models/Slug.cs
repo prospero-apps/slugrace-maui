@@ -9,6 +9,8 @@ public class Slug
     public string ImageUrl { get; set; }
     public string EyeImageUrl { get; set; }
     public string BodyImageUrl { get; set; }
+    public string DefaultEyeImageUrl { get; set; }
+    public string DefaultBodyImageUrl { get; set; }
     public double BaseOdds { get; set; }
     public bool IsRaceWinner { get; set; }
     public string WinSound {  get; set; }

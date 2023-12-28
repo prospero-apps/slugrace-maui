@@ -49,7 +49,8 @@
                 Text="Play Again"
                 Command="{Binding RestartGameCommand}"/>
             <Button
-                Text="Quit" />
+                Text="Quit"
+                Clicked="QuitButtonClicked"/>
         </FlexLayout>
     </Grid>
 </ContentPage>

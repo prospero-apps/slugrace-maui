@@ -64,7 +64,6 @@ public partial class GameOverViewModel : ObservableObject
     async Task RestartGame()
     {
         // Navigate to SettingsPage
-        await Shell.Current.GoToAsync($"//{nameof(SettingsPage)}");
-                
+        await Shell.Current.GoToAsync($"//{nameof(SettingsPage)}");                
     }
 }

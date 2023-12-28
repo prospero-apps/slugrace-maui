@@ -1,7 +1,9 @@
-﻿using CommunityToolkit.Maui.Core.Extensions;
+﻿using CommunityToolkit.Maui.Core;
+using CommunityToolkit.Maui.Core.Extensions;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
+using Plugin.Maui.Audio;
 using Slugrace.Messages;
 using Slugrace.Models;
 using Slugrace.Views;
@@ -13,6 +15,9 @@ namespace Slugrace.ViewModels;
 public partial class GameViewModel : ObservableObject
 {
     SoundViewModel soundViewModel;
+    private readonly IPopupService popupService;
+
+    public AccidentViewModel AccidentViewModel;
 
     [ObservableProperty]
     private Game game;
@@ -87,6 +92,9 @@ public partial class GameViewModel : ObservableObject
     private uint finishTime;
 
     [ObservableProperty]
+    private uint secondTime;
+      
+    [ObservableProperty]
     private bool isShowingFinalResults;
 
     [ObservableProperty]
@@ -148,8 +156,17 @@ public partial class GameViewModel : ObservableObject
 
     [ObservableProperty]
     private bool muted;
-      
-    public GameViewModel(SoundViewModel soundViewModel)
+
+    [ObservableProperty]
+    private bool accidentShouldHappen;
+
+    [ObservableProperty]
+    private IAudioPlayer accidentSoundPlayer;
+
+    [ObservableProperty]
+    private uint afterAccidentTime = 0;
+
+    public GameViewModel(SoundViewModel soundViewModel, IPopupService popupService)
     {
         gameTimer = Application.Current.Dispatcher.CreateTimer();
         gameTimer.Interval = TimeSpan.FromSeconds(1);
@@ -170,6 +187,7 @@ public partial class GameViewModel : ObservableObject
         gameOverPageDelayTimer.Interval = TimeSpan.FromSeconds(3);
 
         this.soundViewModel = soundViewModel;
+        this.popupService = popupService;
 
         WeakReferenceMessenger.Default.Register<PlayerBetAmountChangedMessage>(this, (r, m) =>
             OnBetAmountChangedMessageReceived(m.Value));
@@ -177,7 +195,7 @@ public partial class GameViewModel : ObservableObject
         WeakReferenceMessenger.Default.Register<PlayerSelectedSlugChangedMessage>(this, (r, m) =>
             OnSelectedSlugChangedMessageReceived(m.Value));
     }
-       
+        
     private void OnBetAmountChangedMessageReceived(int value)
     {
         ChangedBetAmount = value;
@@ -210,6 +228,8 @@ public partial class GameViewModel : ObservableObject
                 ImageUrl = value.Slugs[0].ImageUrl,
                 EyeImageUrl = value.Slugs[0].EyeImageUrl,
                 BodyImageUrl = value.Slugs[0].BodyImageUrl,
+                DefaultEyeImageUrl = value.Slugs[0].DefaultEyeImageUrl,
+                DefaultBodyImageUrl = value.Slugs[0].DefaultBodyImageUrl,
                 WinNumber = 0,
                 Odds = Math.Round(value.Slugs[0].BaseOdds + new Random().Next(0, 10) / 100, 2),
                 PreviousOdds = value.Slugs[0].BaseOdds,
@@ -221,6 +241,8 @@ public partial class GameViewModel : ObservableObject
                 ImageUrl = value.Slugs[1].ImageUrl,
                 EyeImageUrl = value.Slugs[1].EyeImageUrl,
                 BodyImageUrl = value.Slugs[1].BodyImageUrl,
+                DefaultEyeImageUrl = value.Slugs[1].DefaultEyeImageUrl,
+                DefaultBodyImageUrl = value.Slugs[1].DefaultBodyImageUrl,
                 WinNumber = 0,
                 Odds = Math.Round(value.Slugs[1].BaseOdds + new Random().Next(0, 10) / 100, 2),
                 PreviousOdds = value.Slugs[1].BaseOdds,
@@ -232,6 +254,8 @@ public partial class GameViewModel : ObservableObject
                 ImageUrl = value.Slugs[2].ImageUrl,
                 EyeImageUrl = value.Slugs[2].EyeImageUrl,
                 BodyImageUrl = value.Slugs[2].BodyImageUrl,
+                DefaultEyeImageUrl = value.Slugs[2].DefaultEyeImageUrl,
+                DefaultBodyImageUrl = value.Slugs[2].DefaultBodyImageUrl,
                 WinNumber = 0,
                 Odds = Math.Round(value.Slugs[2].BaseOdds + new Random().Next(0, 10) / 100, 2),
                 PreviousOdds = value.Slugs[2].BaseOdds,
@@ -243,6 +267,8 @@ public partial class GameViewModel : ObservableObject
                 ImageUrl = value.Slugs[3].ImageUrl,
                 EyeImageUrl = value.Slugs[3].EyeImageUrl,
                 BodyImageUrl = value.Slugs[3].BodyImageUrl,
+                DefaultEyeImageUrl = value.Slugs[3].DefaultEyeImageUrl,
+                DefaultBodyImageUrl = value.Slugs[3].DefaultBodyImageUrl,
                 WinNumber = 0,
                 Odds = Math.Round(value.Slugs[3].BaseOdds + new Random().Next(0, 10) / 100, 2),
                 PreviousOdds = value.Slugs[3].BaseOdds,
@@ -275,12 +301,78 @@ public partial class GameViewModel : ObservableObject
 
         PlayersStillInGame = Players.ToObservableCollection();
 
-        soundViewModel.PlayBackgroundMusic("Game", "Background Music.mp3");
+        _ = soundViewModel.PlayBackgroundMusic("Game", "Background Music.mp3");
     }
 
     [RelayCommand]
     async Task StartRace()
     {
+        Slugs[0].RunningTime = (uint)new Random().Next(6000, 14000);
+        Slugs[1].RunningTime = (uint)new Random().Next(8000, 14000);
+        Slugs[2].RunningTime = (uint)new Random().Next(8000, 14000);
+        Slugs[3].RunningTime = (uint)new Random().Next(10000, 16000);
+                
+        // Check for accident.   
+        bool thereIsAnAccident;
+
+        // Should there be an accident?
+        if (RaceNumber > 5 && AccidentViewModel.Expected)
+        {           
+            // If so, then...
+            thereIsAnAccident = true;
+
+            // Which one?
+            AccidentType[] accidentTypes = (AccidentType[])Enum.GetValues(typeof(AccidentType));
+            var type = accidentTypes[new Random().Next(0, accidentTypes.Length)];
+            AccidentViewModel = new AccidentViewModel(type);
+
+            // Which slug should be affected?
+            AccidentViewModel.AffectedSlug = Slugs[new Random().Next(0, Slugs.Count)];
+                        
+            // When should it happen?
+            AccidentViewModel.TimePosition = (uint)new Random().Next((int)(AccidentViewModel.AffectedSlug.RunningTime * .2),
+                (int)(AccidentViewModel.AffectedSlug.RunningTime * .4));
+
+            // Modify affected slug's running time
+            if (AccidentViewModel.Duration > 0)
+            {
+                if (AccidentViewModel.AccidentType == AccidentType.Grass)
+                {
+                    AfterAccidentTime = AccidentViewModel.AffectedSlug.RunningTime / 4;
+
+                    AccidentViewModel.AffectedSlug.RunningTime = AccidentViewModel.TimePosition
+                    + AccidentViewModel.Duration + AfterAccidentTime;
+                }
+
+                if (AccidentViewModel.AccidentType == AccidentType.Electroshock)
+                {
+                    AfterAccidentTime = AccidentViewModel.AffectedSlug.RunningTime / 4;
+
+                    AccidentViewModel.AffectedSlug.RunningTime = AccidentViewModel.TimePosition
+                    + AccidentViewModel.Duration + AfterAccidentTime;
+                }
+            }
+        }
+        else
+        {
+            thereIsAnAccident = false;
+        }
+
+        // Set race-related times
+        uint[] runningTimes = [
+            Slugs[0].RunningTime,
+            Slugs[1].RunningTime,
+            Slugs[2].RunningTime,
+            Slugs[3].RunningTime
+        ];
+               
+        RaceTime = runningTimes.Max();
+        MinTime = runningTimes.Min();
+        FinishTime = (uint)(.79 * MinTime);
+        SecondTime = runningTimes.Order().ToArray()[1];
+                
+        AccidentShouldHappen = thereIsAnAccident;
+                
         // Start race
         RaceStatus = RaceStatus.Started;
 
@@ -289,24 +381,50 @@ public partial class GameViewModel : ObservableObject
             gameTimer.Start();
         }
 
-        soundViewModel.PlaySound("Game", "Go.mp3", .2);        
+        _ = soundViewModel.PlaySound("Game", "Go.mp3", .2);
 
         await RunRace();        
     }
 
     private async Task RunRace()
     {
-        soundViewModel.PlaySound("Game", "Slugs Running.mp3", .5, true);
+        _ = soundViewModel.PlaySound("Game", "Slugs Running.mp3", .5, true);
 
+        // Modify finish time if the fastest slug has an accident.        
+        if (AccidentViewModel.AffectedSlug.RunningTime == MinTime)
+        {
+            if (AccidentViewModel.Duration == 0)
+            {
+                FinishTime = (uint)(.79 * SecondTime);
+            }
+            else
+            {
+                uint secondFinishTime = (uint)(SecondTime * .79);
+
+                if (secondFinishTime < FinishTime)
+                {
+                    FinishTime = secondFinishTime;
+                    MinTime = SecondTime;
+                }
+            }
+        }
+               
         await Task.Delay((int)FinishTime);
 
         RaceWinnerSlug = Slugs.Where(s => s.RunningTime == MinTime).FirstOrDefault();
 
-        soundViewModel.PlaySound("Slugs Winning", RaceWinnerSlug.WinSound);
+        if (AccidentShouldHappen 
+            && RaceWinnerSlug == AccidentViewModel.AffectedSlug 
+            && AccidentViewModel.Duration == 0)
+        {
+            RaceWinnerSlug = Slugs.Where(s => s.RunningTime == SecondTime).FirstOrDefault();
+        }
+        
+        _ = soundViewModel.PlaySound("Slugs Winning", RaceWinnerSlug.WinSound);
 
         await Task.Delay((int)(RaceTime - FinishTime));
-                
-        RaceWinnerSlug.IsRaceWinner = true;        
+
+        RaceWinnerSlug.IsRaceWinner = true;
 
         soundViewModel.Clean();
 
@@ -316,7 +434,18 @@ public partial class GameViewModel : ObservableObject
 
         await FinishRace();
     }
-       
+
+    public void PlayAccidentSound(bool loop = false, bool loopingAccidentSound = false)
+    {
+        _ = soundViewModel.PlaySound("Accidents", AccidentViewModel.Sound, loop: loop, 
+            loopingAccidentSound: loopingAccidentSound);
+    }
+
+    public void StopAccidentSound()
+    {
+        soundViewModel.Clean(true);
+    }
+    
     private void HandleSlugsAfterRace()
     {
         foreach (var slug in Slugs)
@@ -428,7 +557,7 @@ public partial class GameViewModel : ObservableObject
 
             IsShowingFinalResults = false;
 
-            soundViewModel.PlaySound("Game", "Game Over.mp3", .5);
+            _ = soundViewModel.PlaySound("Game", "Game Over.mp3", .5);
 
             // Navigate to GameOverPage
             await Shell.Current.GoToAsync($"{nameof(GameOverPage)}",
@@ -444,16 +573,42 @@ public partial class GameViewModel : ObservableObject
     [RelayCommand]
     void NextRace()
     {
+        soundViewModel.Clean();
+        soundViewModel.Clean(true);
+
         RaceStatus = RaceStatus.NotYetStarted;
         RaceNumber++;
 
         RaceWinnerSlug = null;
+
+        AccidentViewModel = null;
+
+        AccidentShouldHappen = false;
 
         foreach (var player in Players)
         {
             player.BetAmount = 0;
             player.SelectedSlug = null;
         }
+
+        foreach (var slug in Slugs)
+        {
+            if (slug.BodyImageUrl != slug.DefaultBodyImageUrl)
+            {
+                slug.BodyImageUrl = slug.DefaultBodyImageUrl;
+            }
+
+            if (slug.EyeImageUrl != slug.DefaultEyeImageUrl)
+            {
+                slug.EyeImageUrl = slug.DefaultEyeImageUrl;
+            }
+        }
+    }
+
+    public void DisplayAccidentPopup()
+    {
+        popupService.ShowPopup<AccidentPopupViewModel>(
+            onPresenting: viewModel => viewModel.ShowAccidentInfo(AccidentViewModel));
     }
 
     [RelayCommand]
@@ -476,4 +631,3 @@ public partial class GameViewModel : ObservableObject
         Muted = soundViewModel.Muted;
     }
 }
-

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="Slugrace.Popups.QuitPopup"
+             CanBeDismissedByTappingOutsideOfPopup="False" 
+             Color="Coral">
+    <VerticalStackLayout
+        HorizontalOptions="Center"
+        VerticalOptions="Center">
+        <Label 
+            Text="Are you sure you want to quit?"
+            Margin="5, 20, 5, 40"
+            FontSize="30"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+        <FlexLayout 
+            Direction="Column"
+            JustifyContent="Center"            
+            AlignItems="Center">
+            <Button
+                Text="No, I was wrong. Cancel."
+                WidthRequest="300"
+                Margin="20"
+                Clicked="CancelButtonClicked"/>
+            <Button
+                Text="Yes, I'm sure. Quit."
+                WidthRequest="300"
+                Margin="20"
+                Clicked="QuitButtonClicked"/>
+        </FlexLayout>
+    </VerticalStackLayout>
+</toolkit:Popup>

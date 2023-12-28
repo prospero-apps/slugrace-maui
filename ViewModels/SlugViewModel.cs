@@ -61,6 +61,32 @@ public partial class SlugViewModel : ObservableObject
         }
     }
 
+    public string DefaultEyeImageUrl
+    {
+        get => slug.DefaultEyeImageUrl;
+        set
+        {
+            if (slug.DefaultEyeImageUrl != value)
+            {
+                slug.DefaultEyeImageUrl = value;
+                OnPropertyChanged();
+            }
+        }
+    }
+
+    public string DefaultBodyImageUrl
+    {
+        get => slug.DefaultBodyImageUrl;
+        set
+        {
+            if (slug.DefaultBodyImageUrl != value)
+            {
+                slug.DefaultBodyImageUrl = value;
+                OnPropertyChanged();
+            }
+        }
+    }
+
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(WinPercentage))]
     private int currentRaceNumber;

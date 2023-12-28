@@ -172,6 +172,8 @@ public partial class SettingsViewModel : ObservableObject
                 ImageUrl = "speedster.png",
                 EyeImageUrl = "speedster_eye.png",
                 BodyImageUrl = "speedster_body.png",
+                DefaultEyeImageUrl = "speedster_eye.png",
+                DefaultBodyImageUrl = "speedster_body.png",
                 WinSound = "Speedster Win.mp3"
             },
             new Slug 
@@ -181,6 +183,8 @@ public partial class SettingsViewModel : ObservableObject
                 ImageUrl = "trusty.png",
                 EyeImageUrl = "trusty_eye.png",
                 BodyImageUrl = "trusty_body.png",
+                DefaultEyeImageUrl = "trusty_eye.png",
+                DefaultBodyImageUrl = "trusty_body.png",
                 WinSound = "Trusty Win.mp3"
             },
             new Slug 
@@ -190,6 +194,8 @@ public partial class SettingsViewModel : ObservableObject
                 ImageUrl = "iffy.png",
                 EyeImageUrl = "iffy_eye.png",
                 BodyImageUrl = "iffy_body.png",
+                DefaultEyeImageUrl = "iffy_eye.png",
+                DefaultBodyImageUrl = "iffy_body.png",
                 WinSound = "Iffy Win.mp3"
             },
             new Slug 
@@ -199,6 +205,8 @@ public partial class SettingsViewModel : ObservableObject
                 ImageUrl = "slowpoke.png",
                 EyeImageUrl = "slowpoke_eye.png",
                 BodyImageUrl = "slowpoke_body.png",
+                DefaultEyeImageUrl = "slowpoke_eye.png",
+                DefaultBodyImageUrl = "slowpoke_body.png",
                 WinSound = "Slowpoke Win.mp3"
             }
         ];

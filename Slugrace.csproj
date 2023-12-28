@@ -49,9 +49,36 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Images\Accidents\broken_leg_iffy.png" />
+	  <None Remove="Resources\Images\Accidents\broken_leg_slowpoke.png" />
+	  <None Remove="Resources\Images\Accidents\broken_leg_speedster.png" />
+	  <None Remove="Resources\Images\Accidents\broken_leg_trusty.png" />
+	  <None Remove="Resources\Images\Accidents\electroshock.png" />
+	  <None Remove="Resources\Images\Accidents\grass.png" />
+	  <None Remove="Resources\Images\Accidents\heart_attack.png" />
+	  <None Remove="Resources\Images\Accidents\overheat.png" />
+	  <None Remove="Resources\Images\Accidents\overheat_body.png" />
+	  <None Remove="Resources\Images\Accidents\overheat_eye.png" />
+	  <None Remove="Resources\Images\Accidents\puddle.png" />
+	  <None Remove="Resources\Images\Accidents\slug_monster.png" />
 	  <None Remove="Resources\Images\all_slugs.png" />
 	  <None Remove="Resources\Images\sound_off.png" />
 	  <None Remove="Resources\Images\sound_on.png" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiImage Include="Resources\Images\Accidents\broken_leg_iffy.png" />
+	  <MauiImage Include="Resources\Images\Accidents\broken_leg_slowpoke.png" />
+	  <MauiImage Include="Resources\Images\Accidents\broken_leg_speedster.png" />
+	  <MauiImage Include="Resources\Images\Accidents\broken_leg_trusty.png" />
+	  <MauiImage Include="Resources\Images\Accidents\electroshock.png" />
+	  <MauiImage Include="Resources\Images\Accidents\grass.png" />
+	  <MauiImage Include="Resources\Images\Accidents\heart_attack.png" />
+	  <MauiImage Include="Resources\Images\Accidents\overheat_body.png" />
+	  <MauiImage Include="Resources\Images\Accidents\overheat_eye.png" />
+	  <MauiImage Include="Resources\Images\Accidents\overheat.png" />
+	  <MauiImage Include="Resources\Images\Accidents\puddle.png" />
+	  <MauiImage Include="Resources\Images\Accidents\slug_monster.png" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -107,6 +134,12 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Controls\WinnerInfo.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Popups\AccidentPopup.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Popups\QuitPopup.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\InstructionsPage.xaml">
