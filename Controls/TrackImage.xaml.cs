@@ -128,22 +128,25 @@ public partial class TrackImage : ContentView
                 this.AbortAnimation("accidentAnimation");                
             }
 
-            slugImage.StartEyeRotation();
-                        
-            if (slugImage.ZIndex != 0)
+            if (slugImage != null)
             {
-                slugImage.ZIndex = 0;
-            }
+                slugImage.StartEyeRotation();
 
-            if (slugImage.Opacity != 1)
-            {
-                slugImage.Opacity = 1;
-            }
+                if (slugImage.ZIndex != 0)
+                {
+                    slugImage.ZIndex = 0;
+                }
 
-            if (slugImage.ScaleX != 1)
-            {
-                slugImage.ScaleX = 1;
-            }
+                if (slugImage.Opacity != 1)
+                {
+                    slugImage.Opacity = 1;
+                }
+
+                if (slugImage.ScaleX != 1)
+                {
+                    slugImage.ScaleX = 1;
+                }
+            }            
         }
         else
         {

@@ -62,6 +62,14 @@
 	  <None Remove="Resources\Images\Accidents\puddle.png" />
 	  <None Remove="Resources\Images\Accidents\slug_monster.png" />
 	  <None Remove="Resources\Images\all_slugs.png" />
+	  <None Remove="Resources\Images\Screenshots\gameover_android.png" />
+	  <None Remove="Resources\Images\Screenshots\gameover_windows.png" />
+	  <None Remove="Resources\Images\Screenshots\race_bets_android.png" />
+	  <None Remove="Resources\Images\Screenshots\race_bets_windows.png" />
+	  <None Remove="Resources\Images\Screenshots\race_results_android.png" />
+	  <None Remove="Resources\Images\Screenshots\race_results_windows.png" />
+	  <None Remove="Resources\Images\Screenshots\settings_android.png" />
+	  <None Remove="Resources\Images\Screenshots\settings_windows.png" />
 	  <None Remove="Resources\Images\sound_off.png" />
 	  <None Remove="Resources\Images\sound_on.png" />
 	</ItemGroup>
@@ -79,6 +87,14 @@
 	  <MauiImage Include="Resources\Images\Accidents\overheat.png" />
 	  <MauiImage Include="Resources\Images\Accidents\puddle.png" />
 	  <MauiImage Include="Resources\Images\Accidents\slug_monster.png" />
+	  <MauiImage Include="Resources\Images\Screenshots\gameover_android.png" />
+	  <MauiImage Include="Resources\Images\Screenshots\gameover_windows.png" />
+	  <MauiImage Include="Resources\Images\Screenshots\race_bets_android.png" />
+	  <MauiImage Include="Resources\Images\Screenshots\race_bets_windows.png" />
+	  <MauiImage Include="Resources\Images\Screenshots\race_results_android.png" />
+	  <MauiImage Include="Resources\Images\Screenshots\race_results_windows.png" />
+	  <MauiImage Include="Resources\Images\Screenshots\settings_android.png" />
+	  <MauiImage Include="Resources\Images\Screenshots\settings_windows.png" />
 	</ItemGroup>
 
 	<ItemGroup>

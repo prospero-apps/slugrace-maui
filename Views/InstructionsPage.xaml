@@ -9,13 +9,40 @@
         <BackButtonBehavior IsEnabled="False" IsVisible="False" />
     </Shell.BackButtonBehavior>
 
-    <VerticalStackLayout>
-        <Label 
-            Text="INSTRUCTIONS"
-            VerticalOptions="Center" 
+    <Grid RowDefinitions=".5*, 10*, 1*, .5*, *, .5*">
+        <Border 
+            Grid.Row="1" 
+            Padding="20">
+            <CarouselView    
+                ItemsSource="{Binding Screenshots}"
+                IndicatorView="indicatorView">
+                <CarouselView.ItemTemplate>
+                    <DataTemplate>                        
+                        <Image 
+                            Source="{Binding}" />
+                    </DataTemplate>
+                </CarouselView.ItemTemplate>
+            </CarouselView>
+        </Border>
+        
+        <IndicatorView 
+            x:Name="indicatorView"
+            Grid.Row="2"
+            IndicatorColor="LightBlue"
+            SelectedIndicatorColor="DarkBlue"
+            VerticalOptions="Center"
             HorizontalOptions="Center" />
+        
+        <Label
+            Grid.Row="3"
+            HorizontalOptions="Center"
+            FontSize="15"
+            Text="{OnPlatform 'Use arrows to navigate between slides.', 
+                Android='Swipe to navigate between pages.'}"/>
+
         <Button
+            Grid.Row="4"
             Text="Back" 
             Command="{Binding NavigateBackCommand}" />       
-    </VerticalStackLayout>
+    </Grid>
 </ContentPage>

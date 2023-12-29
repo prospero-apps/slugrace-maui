@@ -160,8 +160,6 @@ public partial class AccidentViewModel : ObservableObject
     [ObservableProperty]
     private SlugViewModel affectedSlug;   
 
-    public bool Expected => new Random().Next(0, 4) == 0;
-
     public AccidentViewModel(AccidentType accidentType)
     {
         accident = new Accident();
